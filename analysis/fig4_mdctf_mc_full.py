@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Complete Fig4 for MDC-TF-MC with transition-omega-uniform sampling."""
+"""Producer: MDC-TF-MC power curves with transition-omega-uniform sampling.
+
+Computes fig4_mdctf_mc_power_curves.csv (plotting lives in figures/)."""
 from __future__ import annotations
 
 import argparse
@@ -27,11 +29,6 @@ from semisynthetic_power import summarize_distance_metrics_with_replacement
 
 core.load_core_runtime()
 figstyle.apply_style()
-
-
-def _seq_colors(keys: list[int]) -> dict[int, str]:
-    palette = ["#4b006e", "#35679a", "#ffdf1f", "#0f766e", "#b45309", "#7c3aed"]
-    return {k: palette[i % len(palette)] for i, k in enumerate(keys)}
 
 
 def _as_pilot_dict(base: dict, tab: pd.DataFrame, sgm: pd.Series) -> dict:
@@ -197,57 +194,6 @@ def run_rows(args: argparse.Namespace) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def plot_fig4(df: pd.DataFrame, out: Path, args: argparse.Namespace) -> None:
-    pilots_a = [7, 10, 17]
-    study_sizes = [7, 10, 17, 30, 50, 80]
-    pilots_c = [7, 10, 17, 30, 50, 80]
-    colors_p = _seq_colors(pilots_c)
-    colors_n = _seq_colors(study_sizes)
-    fig, axes = plt.subplots(1, 3, figsize=(16.8, 4.9))
-    fit_rows: list[dict] = []
-
-    panels = [
-        (axes[0], df[(df["pilot_n"].isin(pilots_a)) & (df["eval_n"] == 17)], "pilot_n", pilots_a, colors_p,
-         "(a) pilot consistency (eval n=17)", 0.004),
-        (axes[1], df[(df["pilot_n"] == 17) & (df["eval_n"].isin(study_sizes))], "eval_n", study_sizes, colors_n,
-         "(b) study-size family (pilot 17)", 0.004),
-        (axes[2], df[(df["pilot_n"].isin(pilots_c)) & (df["eval_n"] == 80)], "pilot_n", pilots_c, colors_p,
-         "(c) pilot extrapolation (eval n=80)", 0.003),
-    ]
-    for ax, suball, by, keys, colors, title, bw in panels:
-        xmax = max(0.08, float(suball["true_omega2"].max()) * 1.06) if len(suball) else 0.08
-        x = np.linspace(0, xmax, 500)
-        for key in keys:
-            sub = suball[suball[by] == key].sort_values("true_omega2")
-            if sub.empty:
-                continue
-            label = f"pilot {key}" if by == "pilot_n" else f"n={key}"
-            params = draw_binned_null_hill_group(
-                ax,
-                sub[["true_omega2", "power"]],
-                color=colors[key],
-                label=label,
-                x=x,
-                bin_width=bw,
-                raw_alpha=0.55 if by == "pilot_n" else 0.35,
-            )
-            fit_rows.append({"panel": title[:3], by: int(key), **({} if params is None else params)})
-        ax.axhline(0.8, color="#667085", ls=":", lw=1.1)
-        ax.axhline(0.05, color="#222222", ls=":", lw=0.9)
-        ax.set_xlim(0, xmax)
-        ax.set_ylim(-0.02, 1.03)
-        ax.set_title(title)
-        ax.set_xlabel("true omega^2")
-        ax.set_ylabel("power")
-        ax.legend(frameon=False, fontsize=8)
-
-    fig.suptitle(f"Figure 4 - MDC-TF-MC transition-omega grid (boot={args.boot})", fontsize=13)
-    fig.tight_layout()
-    fig.savefig(out / "fig4_mdctf_mc_full.png", dpi=240)
-    fig.savefig(out / "fig4_mdctf_mc_full.pdf")
-    pd.DataFrame(fit_rows).to_csv(out / "fig4_mdctf_mc_fit_params.csv", index=False)
-
-
 def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--out", type=Path, default=Path("fig4_mdctf_mc_full"))
@@ -276,8 +222,7 @@ def main() -> None:
     else:
         df = run_rows(args)
     df.to_csv(args.out / "fig4_mdctf_mc_power_curves.csv", index=False)
-    plot_fig4(df, args.out, args)
-    print(f"[fig4-mc] saved {args.out / 'fig4_mdctf_mc_full.png'}", flush=True)
+    print(f"[fig4-mc] saved {args.out / 'fig4_mdctf_mc_power_curves.csv'}", flush=True)
 
 
 if __name__ == "__main__":
