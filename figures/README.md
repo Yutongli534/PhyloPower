@@ -25,8 +25,8 @@ QIIME=/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python
 | Fig. 6 (metric distributions) | `fig6_metric_distributions.py` | bundled demo data via `phylopower` | `fig6_metric_3x2_abcdef.png/.pdf` | QIIME |
 | Fig. 7 (tree-error heatmaps + curves) | `fig7_tree_error.py` | `data/archived_runs/fig5_rerun_20260701/` | `fig7_tree_error_3x2_abcdef.png/.pdf` | base |
 | Fig. 8 (tree-error power behavior) | `fig8_tree_error_power.py` | `data/archived_runs/tree_error_fig5_like_quick/`, `.../tree_error_fig5_like_full25/` | `tree_error_fig5_like_3x2.png/.pdf` | base |
-| Fig. S1 (pilot convergence, gene) | `suppfig1_pilot_convergence_gene.py` | `data/pilot_information_supplement/pilot_information_curve_metrics.csv` | `suppfig1_pilot_convergence_gene.png/.pdf` | base |
-| Fig. S5 (pilot convergence, protein) | `suppfig5_pilot_convergence_protein.py` | `validation_datasets/results/PXD069517_pilot_information/` | `suppfig5_pilot_convergence_protein.png/.pdf` | base |
+| Fig. S1 (pilot convergence, both modalities) | `suppfig1_pilot_convergence.py` | `data/pilot_information_supplement/` + `validation_datasets/results/PXD069517_pilot_information/` | `suppfig1_pilot_convergence.png/.pdf` | base |
+| Fig. S2 (feasibility spectrum + null safety) | `suppfig2_feasibility_spectrum.py` | archived runs + `validation_datasets/results/PXD069517_typeI_null/` | `suppfig2_feasibility_spectrum.png/.pdf` | base |
 
 Shared panel-drawing helpers for Fig. 5/Fig. 8 live in
 `_power_panels_gene.py` / `_power_panels_protein.py`; the shared publication
@@ -34,7 +34,7 @@ style is `figstyle.py`.
 
 ## Figures not generated here
 
-- **Fig. S2** (independent-cohort validation, QinJ_2012 / YachidaS_2019):
+- **Fig. S3** (independent-cohort validation, QinJ_2012 / YachidaS_2019):
   plotted directly from the validation run products under
   `validation_datasets/results/*_core_matched/` (`sensitivity_pilot_curves.png/.pdf`).
 
