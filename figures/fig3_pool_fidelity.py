@@ -46,7 +46,7 @@ from phylopower import core  # noqa: E402  (import first: installs the embedded-
 import figstyle  # noqa: E402
 import pcam_gen as P  # noqa: E402
 from _protein_mdctf_mc import mdctf_mc_pool  # noqa: E402
-from fig2_fidelity_common import (  # noqa: E402
+from fidelity_common import (  # noqa: E402
     _distance_metrics,
     _eigenspectrum,
     _sample_syn_columns,

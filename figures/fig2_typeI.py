@@ -7,7 +7,7 @@ cite panels in order: (a,b) QQ plots, (c,d) empirical-vs-nominal alpha,
 pair.
 
 Only plots from the archived null p-value table (data/figdata/fig1_null_pvalues.csv,
-produced by analysis/fig1.py); no simulations are run here.
+produced by analysis/produce_typeI_null_pvalues.py); no simulations are run here.
 """
 from __future__ import annotations
 

@@ -51,11 +51,11 @@ style is `figstyle.py`.
 
 | Data | Producer |
 |---|---|
-| `data/figdata/fig1_null_pvalues.csv` | `analysis/fig1.py` |
-| `data/figdata/fig4_power_curves.csv` | `analysis/fig4.py` |
-| `data/archived_runs/fig4_new/fig4_mdctf_mc_power_curves.csv` | `analysis/fig4_mdctf_mc_full.py` |
+| `data/figdata/fig1_null_pvalues.csv` | `analysis/produce_typeI_null_pvalues.py` |
+| `data/figdata/fig4_power_curves.csv` | `analysis/produce_power_curves_gene.py` |
+| `data/archived_runs/fig4_new/fig4_mdctf_mc_power_curves.csv` | `analysis/produce_power_curves_protein.py` |
 | `data/archived_runs/fig4_new/fig4_metagenomics_panel_*.csv` | `analysis/run_gene_fig4_panel_*.py` |
-| `data/archived_runs/fig5_rerun_20260701/` | `analysis/fig5.py` |
+| `data/archived_runs/fig5_rerun_20260701/` | `analysis/produce_tree_error_heatmaps.py` |
 | `data/archived_runs/tree_error_fig5_like_*/` | `analysis/run_tree_error_sample_size_curves.py` (+ `run_fixed_scale_midpoint_supplement.py`) |
 | `data/pilot_information_supplement/` | `analysis/run_pilot_information_supplement.py` |
 | `validation_datasets/results/PXD069517_pilot_information/` | `analysis/run_pilot_information_supplement_protein_pxd.py` |
