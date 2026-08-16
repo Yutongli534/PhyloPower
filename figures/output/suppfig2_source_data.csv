@@ -1,8 +1,0 @@
-dataset,baseline_omega2,min_n_power80,source
-DPRS Cd vs Ni (metagenomic),0.422,10,PhyloPower archived run (upper bound)
-Pediatric IBD TI CD vs Control (metaproteomic),0.225,10,PhyloPower archived run (upper bound)
-QinJ_2012 T2D vs control,0.009,65,full-cohort subsampling truth
-YachidaS_2019 CRC vs control,0.002,180,full-cohort subsampling truth
-PXD069517 CD_only vs PolyAI_CD (null cohort),-0.007,none (refused),PhyloPower run on true-null cohort
-"PXD069517 null pools, n=14",,,1000 null p-values; rejection 0.041
-"PXD069517 null pools, n=80",,,1000 null p-values; rejection 0.052
