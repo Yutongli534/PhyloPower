@@ -1,4 +1,0 @@
-workflow,pilot_n,pilot_source,strength,eval_n,true_omega2,power,mode,scenario_index,pool_size_per_group,failed_bootstraps,effect_parameter
-protein,7,real,0.0,14,0.0,0.0,exchangeable_null,0,200,0,strength=0
-protein,7,real,0.5,14,0.010052225585408945,0.0,labeled_bootstrap,1,200,0,strength=0.5
-protein,7,real,1.0,14,0.03931900671744142,0.0,labeled_bootstrap,2,200,0,strength=1
