@@ -1,5 +1,0 @@
-Method,ks_within,ks_between,ks_mean
-Observed pilot (baseline),0.132 ± 0.044,0.138 ± 0.051,0.135 ± 0.047
-micropower (bootstrap DM),0.172 ± 0.031,0.143 ± 0.047,0.158 ± 0.039
-MPrESS (subsample DM),0.132 ± 0.044,0.138 ± 0.051,0.135 ± 0.047
-PhyloPower (PCAM + recompute),0.262 ± 0.026,0.449 ± 0.043,0.355 ± 0.021
