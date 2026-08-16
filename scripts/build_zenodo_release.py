@@ -16,52 +16,14 @@ ARCHIVE_ROOT = f"phylopower-{VERSION}"
 RELEASE_DIR = PROJECT_ROOT / "release"
 ARCHIVE_PATH = RELEASE_DIR / f"{ARCHIVE_ROOT}.zip"
 
-ROOT_FILES = [
-    ".zenodo.json",
-    "CHANGELOG.md",
-    "CITATION.cff",
-    "LICENSE",
-    "MANIFEST.in",
-    "README.md",
-    "REPRODUCIBILITY.md",
-    "ZENODO_UPLOAD.md",
-    "phylopower_cli.py",
-    "pyproject.toml",
-    "analysis/_fig4_curve_plotting.py",
-    "analysis/_protein_mdctf_curve.py",
-    "analysis/_protein_mdctf_mc.py",
-    "analysis/_protein_mdctf_optimized_curve.py",
-    "analysis/gene_power_workflow.py",
-    "analysis/logistic_fit.py",
-    "analysis/pcam_gen.py",
-    "analysis/phylofunc_fast.py",
-    "analysis/protein_power_workflow.py",
-    "analysis/protein_transforms.py",
-    "analysis/semisynthetic_power.py",
-]
-
-PACKAGE_FILES = [
-    "phylopower/__init__.py",
-    "phylopower/__main__.py",
-    "phylopower/_core_source.py",
-    "phylopower/_data.py",
-    "phylopower/_cli_source.py",
-    "phylopower/cli.py",
-    "phylopower/datagene/group.csv",
-    "phylopower/datagene/rooted-tree.nwk",
-    "phylopower/datagene/table.csv",
-    "phylopower/datagene/taxonomy.csv",
-    "phylopower/datapro/group.csv",
-    "phylopower/datapro/rooted-tree.nwk",
-    "phylopower/datapro/protein_taxon_function_cleaned.csv",
-]
-
-SUPPORT_FILES = [
-    "scripts/build_standalone.py",
-    "scripts/build_zenodo_release.py",
-    "tests/test_cli_release.py",
-    "tests/test_reproducibility.py",
-]
+def release_files() -> list[str]:
+    """The release archive mirrors the curated public tree: every git-tracked
+    file (scratch and local-only material is gitignored), minus submission-only
+    TIFF rasters (PNG/PDF/SVG versions are archived instead)."""
+    out = subprocess.run(
+        ["git", "ls-files"], cwd=PROJECT_ROOT, check=True, capture_output=True, text=True
+    )
+    return [f for f in out.stdout.split() if not f.lower().endswith((".tiff", ".tif"))]
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -83,7 +45,7 @@ def main() -> None:
         check=True,
     )
 
-    relative_files = ROOT_FILES + PACKAGE_FILES + SUPPORT_FILES
+    relative_files = release_files()
     missing = [name for name in relative_files if not (PROJECT_ROOT / name).is_file()]
     if missing:
         raise FileNotFoundError("Missing release files: " + ", ".join(missing))
