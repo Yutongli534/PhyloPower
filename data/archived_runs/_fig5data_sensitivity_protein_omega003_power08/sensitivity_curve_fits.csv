@@ -1,7 +1,0 @@
-workflow,eval_n,pilot_n,fit_status,power_at_target_omega2,target_omega2
-protein,17,7,ok,0.4669584225142428,0.03
-protein,17,10,ok,0.5183612437388748,0.03
-protein,17,17,ok,0.5356329425656587,0.03
-protein,80,7,ok,0.9660443874731547,0.03
-protein,80,10,ok,0.982077742676869,0.03
-protein,80,17,ok,0.9981040396165328,0.03
