@@ -64,8 +64,11 @@ def load_modality(modality, K_gene="auto", K_prot=16, group_file=None, table_fil
         samples = list(gt.columns); abund = gt.to_numpy(float); unit = gt.index.astype(str).to_numpy()
         taxa = unit; uid = np.arange(len(unit)); tree = TreeNode.read(str(tree_path_obj))
         K = _resolve_auto_blocks(K_gene, len(taxa)); meta = None; tree_path = str(tree_path_obj); post = gt.index
-    grp = gm.loc[samples].to_numpy(); groups = list(pd.unique(grp)); other = {groups[0]: groups[1], groups[1]: groups[0]}
+    grp = gm.loc[samples].to_numpy(); groups = list(pd.unique(grp))
     gs = {g: np.where(grp == g)[0] for g in groups}
+    # complement donor pool per group (uniform over all other groups; identical
+    # to the single opposite group for two-group inputs, safe for k >= 2)
+    other = {g: np.concatenate([gs[h] for h in groups if h != g]) for g in groups}
     rows = [np.where(clade_assign(tree, taxa, K)[uid] == c)[0] for c in range(K)]
     L = np.log1p(abund); pall = np.concatenate([gs[g] for g in groups])
     grand = L[:, pall].mean(1); dev = {g: L[:, gs[g]].mean(1) - grand for g in groups}
@@ -82,17 +85,19 @@ def pcam_pool(d, M, seed, pi, scale=1.0, ndon=None):
     abund, L, dev, rows, groups, other, gs, libs = (d["abund"], d["L"], d["dev"], d["rows"],
         d["groups"], d["other"], d["gs"], d["libs"])
     rng = np.random.default_rng(seed); N = M * len(groups); ab = np.zeros((abund.shape[0], N)); lab = []; col = 0
+    def _draw_donor(g):
+        # own group with probability pi, otherwise a donor from the complement pool
+        pool = gs[g] if rng.random() < pi else other[g]
+        return pool[rng.integers(len(pool))]
     for g in groups:
         for j in range(M):
             if ndon is None:
-                tg = g if rng.random() < pi else other[g]
-                t0 = gs[tg][rng.integers(len(gs[tg]))]
-                def donor(): dg = g if rng.random() < pi else other[g]; return gs[dg][rng.integers(len(gs[dg]))]
+                t0 = _draw_donor(g)
+                def donor(): return _draw_donor(g)
             else:
                 anch = []
                 for _ in range(ndon):
-                    dgrp = g if rng.random() < pi else other[g]
-                    anch.append(gs[dgrp][rng.integers(len(gs[dgrp]))])
+                    anch.append(_draw_donor(g))
                 t0 = anch[0]
                 def donor(): return anch[rng.integers(len(anch))]
             supp = abund[:, t0] > 0; mos = np.zeros(abund.shape[0])

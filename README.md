@@ -175,7 +175,8 @@ in `core.py`.
 - rooted phylogenetic tree: Newick;
 - group map: CSV containing `sample_id` and `group_name`.
 
-The current raw-pool implementation expects exactly two groups.
+The raw-pool implementation supports two or more groups (the per-group sample
+size recommendation assumes a balanced design with the same n per group).
 
 ## Outputs
 

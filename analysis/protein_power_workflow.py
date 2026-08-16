@@ -142,10 +142,11 @@ def _build_protein_raw_dict(long_df: pd.DataFrame, group_map: pd.Series, args: a
     uid = pd.Series(np.arange(len(taxa)), index=taxa).loc[unit].to_numpy()
     grp = group_map.loc[samples].to_numpy()
     groups = list(pd.unique(grp))
-    if len(groups) != 2:
-        raise ValueError("raw-pool workflow currently expects exactly two groups.")
+    if len(groups) < 2:
+        raise ValueError("raw-pool workflow requires at least two groups.")
     gs = {g: np.where(grp == g)[0] for g in groups}
-    other = {groups[0]: groups[1], groups[1]: groups[0]}
+    # complement donor pool per group (uniform over all other groups; k >= 2 safe)
+    other = {g: np.concatenate([gs[h] for h in groups if h != g]) for g in groups}
     L = np.log1p(abund)
     pall = np.concatenate([gs[g] for g in groups])
     grand = L[:, pall].mean(axis=1)
