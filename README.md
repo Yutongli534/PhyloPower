@@ -4,7 +4,7 @@ PhyloPower estimates the minimum balanced per-group sample size required for
 community-level meta-omics studies at a target statistical power and realized
 PERMANOVA effect size (ω²).
 
-The manuscript-aligned implementation is `phylopower.paper_core`. It provides
+The manuscript-aligned implementation is `phylopower.cli`. It provides
 two raw-pool workflows:
 
 | Command | Synthetic generator | Distance |
@@ -13,21 +13,22 @@ two raw-pool workflows:
 | `protein` | MDC-TF-MC | PhyloFunc |
 
 A step-by-step walkthrough of both workflows is provided in the tutorial
-notebook [`tutorials/tutorial.ipynb`](tutorials/tutorial.ipynb).
+notebook [`tutorials/tutorial.ipynb`](tutorials/tutorial.ipynb). Manuscript
+figure scripts and the figure-to-script map are documented in
+[`figures/README.md`](figures/README.md).
 
-Both the root `paper_core.py` and `phylopower/paper_core.py` are generated,
-self-contained runners. They embed the lower-level core and all other
-project-local runtime modules, so neither file imports an external
-`phylopower/core.py`.
+Both the root `phylopower_cli.py` and `phylopower/cli.py` are generated,
+self-contained runners (two byte-identical copies of the same file). They
+embed the lower-level core and all other project-local runtime modules, so
+neither file imports an external `phylopower/core.py`.
 
 ## Standalone use
 
-The root [`paper_core.py`](paper_core.py) and package
-[`phylopower/paper_core.py`](phylopower/paper_core.py) each contain all
+The root [`phylopower_cli.py`](phylopower_cli.py) and package
+[`phylopower/cli.py`](phylopower/cli.py) each contain all
 project-local Python code required by both workflows. Either file can be
 copied to an empty directory and executed without `core.py` or any other
 PhyloPower source file at runtime.
-`paper_core_standalone.py` is an identical, explicitly named copy.
 
 It still requires the scientific Python packages and input data. Put
 `datagene/` and/or `datapro/` next to the standalone file, set
@@ -51,9 +52,9 @@ that contains Gemelli and `biom-format`; selecting that environment only with
 Gemelli Python API in-process.
 
 ```bash
-python paper_core.py --help
+python phylopower_cli.py --help
 
-python paper_core.py gene \
+python phylopower_cli.py gene \
   --table /data/table.csv \
   --tree /data/rooted-tree.nwk \
   --taxonomy /data/taxonomy.csv \
@@ -61,7 +62,7 @@ python paper_core.py gene \
   --target-power 0.80 \
   --out gene_result
 
-python paper_core.py protein \
+python phylopower_cli.py protein \
   --table /data/protein_taxon_function.csv \
   --tree /data/rooted-tree.nwk \
   --group /data/group.csv \
@@ -94,7 +95,7 @@ derived from `--random-seed`, so a fixed seed reproduces a run bit-for-bit.
 To inspect the exact embedded-module hashes:
 
 ```bash
-python paper_core.py --standalone-info
+python phylopower_cli.py --standalone-info
 ```
 
 Regenerate the standalone file from the readable source modules with:
@@ -103,12 +104,12 @@ Regenerate the standalone file from the readable source modules with:
 python scripts/build_standalone.py
 ```
 
-The maintainable build sources are `phylopower/_paper_core_source.py` and
+The maintainable build sources are `phylopower/_cli_source.py` and
 `phylopower/_core_source.py`; both are tracked in the source tree under
 `phylopower/`. They are used only to regenerate the self-contained runners;
-the generated `phylopower/paper_core.py` does not read them at runtime.
+the generated `phylopower/cli.py` does not read them at runtime.
 Regeneration via `python scripts/build_standalone.py` is deterministic: for a
-fixed source tree it rewrites the three runners byte-identically.
+fixed source tree it rewrites the two runners byte-identically.
 
 ## Package installation
 
@@ -120,7 +121,7 @@ phylopower --help
 ```
 
 The installed `phylopower` command and `python -m phylopower` both invoke
-`phylopower.paper_core`.
+`phylopower.cli`.
 
 The protein workflow requires the dependencies declared in
 `pyproject.toml`. The gene workflow additionally requires a QIIME 2

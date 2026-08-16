@@ -101,9 +101,9 @@ def _fake_curve_df() -> pd.DataFrame:
 
 
 def _search(target_omega2: float):
-    from phylopower import paper_core
+    from phylopower import cli
 
-    return paper_core._search_minimum_n(
+    return cli._search_minimum_n(
         min_n=2,
         max_n=6,
         target_power=0.8,
@@ -117,14 +117,14 @@ def _search(target_omega2: float):
 
 
 def test_unbracketed_target_never_qualifies(capsys) -> None:
-    from phylopower import paper_core
+    from phylopower import cli
 
     minimum_n, power_df, _ = _search(target_omega2=0.5)
     assert minimum_n is None
     assert not power_df["target_omega2_bracketed"].any()
     assert not power_df["qualifies"].any()
     assert "falls outside the simulated range" in capsys.readouterr().out
-    flags = paper_core._curve_support_flags(power_df)
+    flags = cli._curve_support_flags(power_df)
     assert flags == {"target_omega2_bracketed": False, "low_omega_support_warning": True}
 
 

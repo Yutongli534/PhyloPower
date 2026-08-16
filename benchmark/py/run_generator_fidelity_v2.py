@@ -24,6 +24,7 @@ from scipy.stats import ks_2samp
 
 _REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_REPO))
+sys.path.insert(0, str(_REPO / "analysis"))
 
 from phylopower import core; core.load_core_runtime()  # noqa: E402
 import semisynthetic_power as sp  # noqa: E402

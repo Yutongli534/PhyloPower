@@ -1,0 +1,123 @@
+{
+  "optimization": {
+    "protein": {
+      "params": {
+        "edge_fraction": 0.75,
+        "residual_mode": "template",
+        "marginal_strength": "auto",
+        "eb_k": "auto",
+        "jitter_sd": 0.15
+      },
+      "median_max_score": 0.6156962452657012,
+      "seed_scores": [
+        {
+          "max_score": 0.6072040327910971,
+          "abundance": 0.32564705882352957,
+          "prevalence": 0.45111671431736433,
+          "distance": 0.6072040327910971,
+          "dispersion": 0.4333785004516713,
+          "omega2": 0.014098767972108637,
+          "deff": 0.2814903928084876,
+          "tf_topology": 0.017993377140107625,
+          "lowq_distance": 0.39783184033565683,
+          "uniqueness": 0.0
+        },
+        {
+          "max_score": 0.6690790931245848,
+          "abundance": 0.32376470588235307,
+          "prevalence": 0.6690790931245848,
+          "distance": 0.545360654945964,
+          "dispersion": 0.48486901535682037,
+          "omega2": 0.010984870743483364,
+          "deff": 0.18525077801498174,
+          "tf_topology": 0.06724751085495781,
+          "lowq_distance": 0.42722730065744696,
+          "uniqueness": 0.0
+        },
+        {
+          "max_score": 0.6156962452657012,
+          "abundance": 0.32527058823529426,
+          "prevalence": 0.6156962452657012,
+          "distance": 0.5882570632536137,
+          "dispersion": 0.48486901535682037,
+          "omega2": 0.01409122416500389,
+          "deff": 0.22597147088136807,
+          "tf_topology": 0.024122341197016513,
+          "lowq_distance": 0.40247913068598434,
+          "uniqueness": 0.0
+        }
+      ]
+    },
+    "gene": {
+      "params": {
+        "pi": 1.0,
+        "scale": 1.0
+      },
+      "median_max_score": 0.3204524033930257,
+      "seed_scores": [
+        {
+          "max_score": 0.28275212064090505,
+          "abundance": 0.1688951442646025,
+          "prevalence": 0.28275212064090505,
+          "distance": 0.2564102564102564,
+          "dispersion": 0.23148148148148148,
+          "omega2": 0.12680412756572104,
+          "deff": 0.050772920580596355,
+          "library_sparsity": 0.11111111111111112
+        },
+        {
+          "max_score": 0.4524033930254481,
+          "abundance": 0.19704433497536958,
+          "prevalence": 0.4524033930254481,
+          "distance": 0.32745726495726496,
+          "dispersion": 0.3333333333333333,
+          "omega2": 0.1675535436790963,
+          "deff": 0.17031654046764808,
+          "library_sparsity": 0.15277777777777776
+        },
+        {
+          "max_score": 0.3204524033930257,
+          "abundance": 0.2392681210415202,
+          "prevalence": 0.3204524033930257,
+          "distance": 0.28737505432420685,
+          "dispersion": 0.25925925925925924,
+          "omega2": 0.12091604437590033,
+          "deff": 0.040019849783726046,
+          "library_sparsity": 0.09722222222222222
+        }
+      ]
+    }
+  },
+  "sample_level": {
+    "protein": {
+      "source_r2": 0.008264864913406035,
+      "source_p": 1.0,
+      "auc": 0.7135204081632653,
+      "precision": 0.9166666666666666,
+      "recall": 0.9166666666666666,
+      "authenticity": 0.9722222222222222
+    },
+    "gene": {
+      "source_r2": 0.005355466692341126,
+      "source_p": 1.0,
+      "auc": 0.275,
+      "precision": 1.0,
+      "recall": 1.0,
+      "authenticity": 0.9
+    }
+  },
+  "distance_low_tail": {
+    "protein": {
+      "within_zero_fraction_median": 0.0,
+      "within_below_real_5pct_fraction_median": 0.06015406162464986,
+      "visual_display": "ridge density overlay clipped at the pooled 99.5th distance percentile",
+      "ks_uses_full_pairwise_distribution": true
+    },
+    "gene": {
+      "within_zero_fraction_median": 0.005252100840336135,
+      "within_below_real_5pct_fraction_median": 0.07580532212885155,
+      "visual_display": "ridge density overlay clipped at the pooled 99.5th distance percentile",
+      "ks_uses_full_pairwise_distribution": true
+    }
+  }
+}

@@ -11,6 +11,12 @@ release/
 .cache/
 
 # --- local scratch (kept on disk, not released) ---
+_archive_scripts/
+paper_core_standalone.py
+fig1/
+fig2_typeI_2x3_gene_first/
+fig2_typeI_3x2_gene_first/
+fig4_new/
 _render_*/
 old_doc_images/
 figure_subpanels_2to1/
@@ -36,3 +42,12 @@ validation_datasets/raw/
 benchmark/end2end*/
 *.docx
 *.zip
+Evo_paper_deepdive_zh.md
+Evo_paper_guide_zh.md
+PROGRESS.md
+gene_real_n4_n10_curves.csv
+parameter_omega_dense_current_method.csv
+parameter_omega_dense_current_method_v2.csv
+parameter_omega_dense_current_method_v3.csv
+stage3_synthetic_pool_effect_modulation.png
+_archive_scripts/

@@ -3,13 +3,13 @@
 ## Authoritative implementation
 
 The scientific workflow used for the manuscript is
-`phylopower/paper_core.py`. The installed CLI, module CLI, package-level API,
+`phylopower/cli.py`. The installed CLI, module CLI, package-level API,
 and generated standalone runner all resolve to this implementation.
 
-`phylopower/paper_core.py` is a generated, self-contained module that embeds
+`phylopower/cli.py` is a generated, self-contained module that embeds
 the lower-level core and all other project-local runtime modules. It does not
 require an external `phylopower/core.py`. The readable build sources
-`phylopower/_paper_core_source.py` and `phylopower/_core_source.py` are
+`phylopower/_cli_source.py` and `phylopower/_core_source.py` are
 tracked in the source tree under `phylopower/` and are used only for
 maintenance and deterministic regeneration (`python
 scripts/build_standalone.py` rewrites the runners byte-identically for a
@@ -39,12 +39,11 @@ command, input-file checksums, software environment, and output
 
 ## Standalone integrity
 
-The root `paper_core.py`, its identical `paper_core_standalone.py` copy, and
-`phylopower/paper_core.py` embed the complete project-local dependency
-closure. Run:
+The root `phylopower_cli.py` and `phylopower/cli.py` embed the complete
+project-local dependency closure. Run:
 
 ```bash
-python paper_core.py --standalone-info
+python phylopower_cli.py --standalone-info
 ```
 
 to print SHA-256 hashes for every embedded source module. Rebuild it with:

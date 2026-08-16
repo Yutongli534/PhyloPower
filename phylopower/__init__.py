@@ -1,18 +1,18 @@
 """PhyloPower's manuscript-aligned public API.
 
-``paper_core`` is the authoritative, self-contained implementation.  Its
+``phylopower.cli`` is the authoritative, self-contained implementation.  Its
 internal workflow modules are embedded in that file, so it has no runtime
 dependency on a separate ``core.py`` or other project source files.
 """
 
 from ._data import DATAGENE_DIR, DATAPRO_DIR, demo_path
-from .paper_core import (
+from .cli import (
     compute_gene_min_sample_size,
     compute_protein_min_sample_size,
 )
 
 # Descriptive aliases retained for callers that used the original package
-# terminology. Both aliases resolve to the authoritative paper_core
+# terminology. Both aliases resolve to the authoritative cli
 # implementations.
 compute_taxon = compute_gene_min_sample_size
 compute_taxon_function = compute_protein_min_sample_size

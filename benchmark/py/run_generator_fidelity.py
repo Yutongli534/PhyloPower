@@ -32,6 +32,7 @@ from scipy.stats import ks_2samp
 
 _REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_REPO))
+sys.path.insert(0, str(_REPO / "analysis"))
 
 # --- QIIME 2 compat for Gene workflow ---
 try:

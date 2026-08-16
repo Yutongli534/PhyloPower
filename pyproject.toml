@@ -66,7 +66,7 @@ dev = [
 ]
 
 [project.scripts]
-phylopower = "phylopower.paper_core:main"
+phylopower = "phylopower.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/Yutongli534/--MetaPower"
@@ -75,19 +75,9 @@ Issues = "https://github.com/Yutongli534/--MetaPower/issues"
 
 [tool.setuptools]
 packages = ["phylopower"]
-py-modules = [
-    "_fig4_curve_plotting",
-    "_protein_mdctf_curve",
-    "_protein_mdctf_optimized_curve",
-    "_protein_mdctf_mc",
-    "gene_power_workflow",
-    "protein_power_workflow",
-    "semisynthetic_power",
-    "pcam_gen",
-    "phylofunc_fast",
-    "logistic_fit",
-    "protein_transforms",
-]
+# The simulation engines under analysis/ are embedded into the self-contained
+# ``phylopower.cli`` runner by ``scripts/build_standalone.py``; they are not
+# installed as top-level modules.
 
 [tool.setuptools.package-data]
 # Ship the bundled demo datasets inside the wheel so that `pip install

@@ -19,6 +19,7 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(REPO / "analysis"))
 
 from phylopower import core  # noqa: E402,F401  (installs embedded module finder)
 import semisynthetic_power as sp  # noqa: E402

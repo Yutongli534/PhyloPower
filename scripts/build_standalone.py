@@ -2,7 +2,7 @@
 """Build the single-file, manuscript-aligned PhyloPower executable.
 
 The generated file embeds every project-local module needed by
-``phylopower.paper_core`` and loads them directly from memory.  It therefore
+``phylopower.cli`` and loads them directly from memory.  It therefore
 needs only its third-party Python environment and the input datasets at run
 time; no other PhyloPower ``.py`` files are required.
 """
@@ -19,25 +19,24 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = [
-    PROJECT_ROOT / "paper_core.py",
-    PROJECT_ROOT / "paper_core_standalone.py",
-    PROJECT_ROOT / "phylopower" / "paper_core.py",
+    PROJECT_ROOT / "phylopower_cli.py",
+    PROJECT_ROOT / "phylopower" / "cli.py",
 ]
 
 MODULE_FILES = {
     "phylopower.core": "phylopower/_core_source.py",
-    "phylopower.paper_core": "phylopower/_paper_core_source.py",
-    "_fig4_curve_plotting": "_fig4_curve_plotting.py",
-    "_protein_mdctf_curve": "_protein_mdctf_curve.py",
-    "_protein_mdctf_mc": "_protein_mdctf_mc.py",
-    "_protein_mdctf_optimized_curve": "_protein_mdctf_optimized_curve.py",
-    "gene_power_workflow": "gene_power_workflow.py",
-    "logistic_fit": "logistic_fit.py",
-    "pcam_gen": "pcam_gen.py",
-    "phylofunc_fast": "phylofunc_fast.py",
-    "protein_power_workflow": "protein_power_workflow.py",
-    "protein_transforms": "protein_transforms.py",
-    "semisynthetic_power": "semisynthetic_power.py",
+    "phylopower.cli": "phylopower/_cli_source.py",
+    "_fig4_curve_plotting": "analysis/_fig4_curve_plotting.py",
+    "_protein_mdctf_curve": "analysis/_protein_mdctf_curve.py",
+    "_protein_mdctf_mc": "analysis/_protein_mdctf_mc.py",
+    "_protein_mdctf_optimized_curve": "analysis/_protein_mdctf_optimized_curve.py",
+    "gene_power_workflow": "analysis/gene_power_workflow.py",
+    "logistic_fit": "analysis/logistic_fit.py",
+    "pcam_gen": "analysis/pcam_gen.py",
+    "phylofunc_fast": "analysis/phylofunc_fast.py",
+    "protein_power_workflow": "analysis/protein_power_workflow.py",
+    "protein_transforms": "analysis/protein_transforms.py",
+    "semisynthetic_power": "analysis/semisynthetic_power.py",
 }
 
 DATA_MODULE_SOURCE = r'''
@@ -78,7 +77,7 @@ and/or ``datapro`` next to this file, set ``PHYLOPOWER_DATA_DIR``, or provide
 all input paths explicitly on the command line.
 
 The same generated file can be executed directly or imported as
-``phylopower.paper_core``.
+``phylopower.cli``.
 
 Regenerate with: ``python scripts/build_standalone.py``
 """
@@ -131,12 +130,12 @@ def _install_embedded_modules():
     _install_embedded_finder()
 
 
-def _exec_embedded_paper_core_in_current_module():
-    encoded = _EMBEDDED_SOURCES["phylopower.paper_core"]
+def _exec_embedded_cli_in_current_module():
+    encoded = _EMBEDDED_SOURCES["phylopower.cli"]
     source = _zlib.decompress(_base64.b85decode(encoded)).decode("utf-8")
     globals()["__package__"] = "phylopower"
     exec(
-        compile(source, f"{__file__}::phylopower.paper_core", "exec"),
+        compile(source, f"{__file__}::phylopower.cli", "exec"),
         globals(),
     )
 
@@ -145,26 +144,26 @@ def _print_standalone_info():
     print(_json.dumps(_BUILD_INFO, indent=2, sort_keys=True))
 
 
-if __name__ == "phylopower.paper_core":
+if __name__ == "phylopower.cli":
     # Package import: keep the real parent package, install the embedded
     # dependency finder, and expose the public API from the embedded source
     # through this generated module.
     _install_embedded_finder()
-    _exec_embedded_paper_core_in_current_module()
+    _exec_embedded_cli_in_current_module()
 elif __name__ == "__main__":
     if "--standalone-info" in _sys.argv:
         _print_standalone_info()
     else:
         _install_embedded_modules()
-        from phylopower.paper_core import main as _paper_main
+        from phylopower.cli import main as _cli_main
 
-        _paper_main()
+        _cli_main()
 else:
     # Importing a copied standalone under another module name remains
     # supported and re-exports the manuscript-aligned public functions.
     _install_embedded_modules()
-    from phylopower.paper_core import main as _paper_main
-    from phylopower.paper_core import (
+    from phylopower.cli import main as _cli_main
+    from phylopower.cli import (
         compute_gene_min_sample_size,
         compute_protein_min_sample_size,
         create_argument_parser,
@@ -188,7 +187,7 @@ def main() -> None:
         for module_name, source in sorted(sources.items())
     }
     build_info = {
-        "entry_point": "phylopower.paper_core:main",
+        "entry_point": "phylopower.cli:main",
         "embedded_module_count": len(sources),
         "module_sha256": hashes,
     }
