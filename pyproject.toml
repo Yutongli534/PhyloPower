@@ -1,0 +1,110 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Phylopower"
+version = "0.1.0"
+description = "PhyloPower: manuscript-aligned power and minimum-sample-size estimation for meta-omics beta-diversity studies."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [
+    { name = "Yutong Li" },
+]
+keywords = [
+    "microbiome",
+    "metagenomics",
+    "metaproteomics",
+    "power-analysis",
+    "beta-diversity",
+    "PERMANOVA",
+    "phylogenetic",
+    "bootstrap",
+    "sample-size",
+    "PhyloFunc",
+    "Gemelli",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+dependencies = [
+    "numpy>=1.22",
+    "pandas>=1.5",
+    "scipy>=1.9",
+    "scikit-bio>=0.6.3",
+    "joblib>=1.2",
+    "matplotlib>=3.7",
+    "tqdm>=4.64",
+    "psutil>=5.9",
+    "phylofunc",
+    "biopython>=1.80",
+    # NOTE: the following are only required by the `compute_taxon` pipeline
+    # and must be installed via conda, not pip:
+    #     - qiime2
+    #     - gemelli
+    #     - biom-format   (bundled with the QIIME 2 conda distribution)
+    # See README.md "Installation" for details.
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "ruff>=0.4",
+    "black>=24.0",
+]
+
+[project.scripts]
+phylopower = "phylopower.paper_core:main"
+
+[project.urls]
+Homepage = "https://github.com/Yutongli534/--MetaPower"
+Documentation = "https://github.com/Yutongli534/--MetaPower#readme"
+Issues = "https://github.com/Yutongli534/--MetaPower/issues"
+
+[tool.setuptools]
+packages = ["phylopower"]
+py-modules = [
+    "_fig4_curve_plotting",
+    "_protein_mdctf_curve",
+    "_protein_mdctf_optimized_curve",
+    "_protein_mdctf_mc",
+    "gene_power_workflow",
+    "protein_power_workflow",
+    "semisynthetic_power",
+    "pcam_gen",
+    "phylofunc_fast",
+    "logistic_fit",
+    "protein_transforms",
+]
+
+[tool.setuptools.package-data]
+# Ship the bundled demo datasets inside the wheel so that `pip install
+# Phylopower` gives users a ready-to-run example. Resolved at runtime via
+# `phylopower.demo_path("datagene", "table.csv")`.
+phylopower = [
+    "datagene/*.csv",
+    "datagene/*.nwk",
+    "datagene/*.qza",
+    "datapro/*.csv",
+    "datapro/*.nwk",
+    "datapro/*.qza",
+]
+
+[tool.pytest.ini_options]
+# Keep bare `pytest` runs on the canonical test suite; archived release
+# snapshots under release/ contain byte-identical test copies that would
+# otherwise collide on module basename during collection.
+testpaths = ["tests"]
+norecursedirs = ["build", "dist", "release", "*.egg-info", ".*"]

@@ -1,0 +1,45 @@
+block,modality,metric,value
+scorecard,protein,Protein abundance,0.07105719237435015
+scorecard,protein,Protein prevalence,0.058026830990435874
+scorecard,protein,TF topology,0.025
+scorecard,protein,Protein distance,0.09540100250626567
+scorecard,protein,Protein d_eff,0.04424161175278191
+scorecard,protein,Protein omega2,0.18321018924512433
+scorecard,gene,Gene abundance,0.16377171215880892
+scorecard,gene,Gene prevalence/lib,0.1
+scorecard,gene,Gene distance,0.2271186440677966
+scorecard,gene,Gene d_eff,0.05974507380356811
+scorecard,gene,Gene omega2,0.0959214345012133
+feature,protein,mean_ks,0.07105719237435015
+feature,protein,variance_ks,0.06682072020026963
+feature,gene,mean_ks,0.16377171215880892
+feature,gene,variance_ks,0.12655086848635236
+structure,protein,taxon_degree_ks,0.0020808194057788665
+structure,protein,function_degree_ks,0.005800100268865349
+structure,protein,edge_count_ks,0.025
+structure,protein,connectance_ratio,0.9534256179482163
+structure,gene,library_size_ks,0.1
+structure,gene,sample_sparsity_ks,0.025
+distance,protein,within_ks,0.05740691311891098
+distance,protein,between_ks,0.09540100250626567
+distance,protein,omega2_real,0.19720266915511378
+distance,protein,omega2_syn,0.2239053915470625
+distance,protein,omega2_ratio,1.1354075099812424
+distance,protein,deff_real,9.11002790837072
+distance,protein,deff_syn,8.834900346471974
+distance,protein,deff_ratio,0.9697994819921523
+distance,gene,within_ks,0.2271186440677966
+distance,gene,between_ks,0.18
+distance,gene,omega2_real,0.3814415620061715
+distance,gene,omega2_syn,0.4076648257760958
+distance,gene,omega2_ratio,1.0687477883427396
+distance,gene,deff_real,1.2790804480433342
+distance,gene,deff_syn,1.3331619800783077
+distance,gene,deff_ratio,1.0422815719822036
+spectrum,protein,deff_real,9.11002790837072
+spectrum,protein,deff_syn,8.834900346471974
+spectrum,gene,deff_real,1.2790804480433342
+spectrum,gene,deff_syn,1.3331619800783077
+generator,protein,edge_fraction,1.25
+generator,gene,pi,1.0
+generator,gene,scale,3.0

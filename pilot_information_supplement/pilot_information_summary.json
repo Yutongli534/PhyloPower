@@ -1,0 +1,51 @@
+{
+  "modality": "gene",
+  "eval_n": 80,
+  "reps_requested": 20,
+  "reference_omega2_at_80_power": 0.013666470116679947,
+  "spearman_pilot_n_vs_curve_error": {
+    "rho": -0.8781128885673383,
+    "p": 3.187020228332887e-20
+  },
+  "friedman_repeated_pilot_size_test": {
+    "chi_square": 33.60000000000002,
+    "p": 5.056531348335465e-08
+  },
+  "adjacent_paired_wilcoxon_greater": [
+    {
+      "smaller_pilot_n": 4,
+      "larger_pilot_n": 7,
+      "paired_w": 196.0,
+      "one_sided_p": 0.0001049041748046875
+    },
+    {
+      "smaller_pilot_n": 7,
+      "larger_pilot_n": 10,
+      "paired_w": 210.0,
+      "one_sided_p": 9.5367431640625e-07
+    }
+  ],
+  "median_metrics_by_pilot_n": [
+    {
+      "pilot_n": 4,
+      "rep": 9.5,
+      "mean_abs_curve_error": 0.032260411682824966,
+      "omega2_at_80_power": 0.02109869159901802,
+      "reference_omega2_at_80_power": 0.013666470116679947
+    },
+    {
+      "pilot_n": 7,
+      "rep": 9.5,
+      "mean_abs_curve_error": 0.013691247641586779,
+      "omega2_at_80_power": 0.01677277789277509,
+      "reference_omega2_at_80_power": 0.013666470116679947
+    },
+    {
+      "pilot_n": 10,
+      "rep": 9.5,
+      "mean_abs_curve_error": 0.0016021136501719597,
+      "omega2_at_80_power": 0.01383082918766864,
+      "reference_omega2_at_80_power": 0.013666470116679947
+    }
+  ]
+}

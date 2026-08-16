@@ -1,0 +1,27 @@
+{
+  "accession": "PXD069517",
+  "source_annotation": "/Users/liyutong/Desktop/phylopower/validation_datasets/raw/PRIDE/PXD069517/MGDB_peptides_intensities_tax-funct_annotations.xlsx",
+  "source_legend": "/Users/liyutong/Desktop/phylopower/validation_datasets/raw/PRIDE/PXD069517/sample_code_legend.xlsx",
+  "taxon_definition": "LCA label (or deepest available rank), disambiguated by full annotated lineage",
+  "function_definition": "KEGG orthology identifier",
+  "multiple_function_rule": "Peptide intensity divided equally among unique KEGG KO annotations",
+  "min_prevalence_samples": 2,
+  "max_taxon_function_edges": 10000,
+  "input_peptides": 63250,
+  "annotated_peptides": 27603,
+  "output_taxa": 739,
+  "output_functions": 1287,
+  "output_taxon_function_edges": 9381,
+  "samples": 28,
+  "groups": {
+    "CD_only": 14,
+    "PolyAI_CD": 14
+  },
+  "tree": "Rooted taxonomic hierarchy from the supplied superkingdom-to-species annotations; unit branch lengths",
+  "outputs": {
+    "table": "protein_taxon_function.csv",
+    "group": "group.csv",
+    "tree": "rooted-tree.nwk",
+    "taxon_mapping": "taxon_mapping.csv"
+  }
+}

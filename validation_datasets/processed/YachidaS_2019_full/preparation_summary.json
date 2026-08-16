@@ -1,0 +1,16 @@
+{
+  "dataset": "YachidaS_2019",
+  "selection_rule": "full cohort: all samples with study_condition in {CRC, control}",
+  "groups": {
+    "CRC": 258,
+    "control": 251
+  },
+  "samples_total": 509,
+  "tree_tip_match_rate": 0.9876,
+  "species_rows_total": 727,
+  "species_rows_matched": 718,
+  "min_prevalence_samples": 2,
+  "output_features": 596,
+  "abundance_unit": "MetaPhlAn relative abundance fraction x 1e6 (ppm pseudo-counts, rounded)",
+  "tree": "curatedMetagenomicData 3.20.0 MetaPhlAn tree pruned to retained species"
+}

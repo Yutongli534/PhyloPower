@@ -1,0 +1,25 @@
+{
+  "title": "PhyloPower: manuscript-aligned power and sample-size estimation for meta-omics beta-diversity studies",
+  "upload_type": "software",
+  "description": "PhyloPower provides manuscript-aligned raw-pool workflows for minimum sample-size estimation in metagenomic and metaproteomic beta-diversity studies. It combines PCAM with Gemelli for taxonomic feature tables and MDC-TF-MC with PhyloFunc for Taxon-Function data. This release includes readable modular source code and a self-contained single-file runner.",
+  "creators": [
+    {
+      "name": "Li, Yutong",
+      "affiliation": "Jilin University"
+    }
+  ],
+  "version": "0.1.0",
+  "publication_date": "2026-07-24",
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "microbiome",
+    "metagenomics",
+    "metaproteomics",
+    "power analysis",
+    "sample size",
+    "beta diversity",
+    "PERMANOVA",
+    "phylogenetics"
+  ]
+}

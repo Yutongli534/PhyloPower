@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ps -p 8183 -o pid,state,time,%cpu,%mem,etime -h)",
+      "Bash(awk '{sum+=$3} END {print \"Total CPU%:\", sum\"%\"}')"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+n_per_group,search_stage,fit_status,fit_method,fitted_power_at_target_omega2,required_omega2_for_target_power,curve_reaches_target_power,target_omega2_bracketed,target_omega2,target_power,qualifies,h,x0,floor
+2,coarse,ok,binned_null_started_hill,3.3311084336421858e-12,,False,True,0.03,0.8,False,7.780411932887847,0.8959603844083036,0.0
+10,coarse,ok,binned_null_started_hill,0.3035609330899771,0.10830311493128772,True,True,0.03,0.8,False,1.8241230250728115,0.05220061683353906,0.05
+20,coarse,ok,binned_null_started_hill,0.6087286095360018,0.047382612782438376,True,True,0.03,0.8,False,2.149485912714328,0.02563237596190251,0.06
+30,coarse,ok,binned_null_started_hill,0.7904972237848414,0.03158840852162559,True,True,0.03,0.8,False,1.8190550678221535,0.014875786985908709,0.04
+31,fine,ok,binned_null_started_hill,0.8079531974561008,0.029332093627223756,True,True,0.03,0.8,True,2.135097626417987,0.015580063119660256,0.03
+32,plot_context,ok,binned_null_started_hill,0.8414906364634333,0.02632367376802132,True,True,0.03,0.8,True,1.9374457596044745,0.01283252500934535,0.02
+40,coarse,ok,binned_null_started_hill,0.8922248206432664,0.021058939014417057,True,True,0.03,0.8,True,1.9780627760945597,0.010609998371812483,0.05

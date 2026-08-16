@@ -1,0 +1,5 @@
+workflow,pilot_n,pilot_source,eval_n,effect_parameter,true_omega2,power,pool_size_per_group,scenario_index
+gene,10,real,10,"pi=0.5,scale=1",0.0,0.05,60,0
+gene,10,real,10,"pi=0.875,scale=1",0.03743681016597256,0.1,60,1
+gene,10,real,10,"pi=0.775,scale=1.7",0.13085840070952118,0.7,60,2
+gene,10,real,10,"pi=1,scale=1.7",0.2387669844072073,0.95,60,3

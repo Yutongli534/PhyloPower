@@ -1,0 +1,9 @@
+method,pilot_n,strength,eval_n,true_omega2,power,edge_fraction,eval_mode
+mdc_tf_optimized,7,0.0,17,0.0,0.0,0.25,exchangeable_null
+mdc_tf_optimized,7,0.3925,17,0.010885547800596477,0.16,0.25,labeled_bootstrap
+mdc_tf_optimized,7,0.5591,17,0.02213438137011901,0.3,0.25,labeled_bootstrap
+mdc_tf_optimized,7,0.7145,17,0.0339778790700263,0.56,0.25,labeled_bootstrap
+mdc_tf_optimized,7,0.8203,17,0.05357743694546661,0.72,0.25,labeled_bootstrap
+mdc_tf_optimized,7,0.854,17,0.06138049445710071,0.76,0.25,labeled_bootstrap
+mdc_tf_optimized,7,0.8877,17,0.07743652012498961,0.92,0.25,labeled_bootstrap
+mdc_tf_optimized,7,1.0,17,0.0852114292355326,0.94,0.25,labeled_bootstrap

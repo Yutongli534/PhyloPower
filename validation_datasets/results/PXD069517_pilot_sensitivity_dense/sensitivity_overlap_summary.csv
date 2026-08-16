@@ -1,0 +1,3 @@
+workflow,eval_n,pilot_n,reference_pilot_n,mean_abs_power_diff,max_abs_power_diff,power_at_target_diff
+protein,14,5,10,0.09453966924052427,0.16825934350084615,-0.15363621751912848
+protein,14,7,10,0.052096602765305755,0.11821281003742867,-0.04995288677456022

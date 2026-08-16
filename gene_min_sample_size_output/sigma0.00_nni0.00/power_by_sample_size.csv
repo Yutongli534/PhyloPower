@@ -1,0 +1,11 @@
+n_per_group,search_stage,qualification_method,target_omega2_bracketed,bracket_low_omega2,bracket_high_omega2,bracket_low_power,bracket_high_power,curve_fit_status,curve_reaches_target_power,estimated_power_at_target_omega2,fitted_power_at_target_omega2,required_omega2_for_target_power,target_omega2,target_power,qualifies
+2,coarse,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.0500000000103822,1.8810153609456872,0.15,0.8,False
+3,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.0500000000103822,1.8810153609456872,0.15,0.8,False
+4,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.29010052541430476,0.4405543018153593,0.15,0.8,False
+5,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.42756146019611196,0.3177947111019735,0.15,0.8,False
+6,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.5146797707970485,0.25440730028295044,0.15,0.8,False
+7,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.6260869666735653,0.20797712544912147,0.15,0.8,False
+8,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.7177642149560421,0.1776115147790538,0.15,0.8,False
+9,fine,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.7885592799695592,0.15393927424015547,0.15,0.8,False
+10,coarse,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.8372109596403828,0.1360440250567192,0.15,0.8,True
+11,fine_stability,anchored_sigmoid_curvefit_at_0.05,,,,,,ok,True,,0.8753905612637729,0.11980239055309633,0.15,0.8,True

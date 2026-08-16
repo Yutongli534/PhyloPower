@@ -1,0 +1,12 @@
+include README.md
+include LICENSE
+include CITATION.cff
+include .zenodo.json
+include CHANGELOG.md
+include REPRODUCIBILITY.md
+include paper_core.py
+include paper_core_standalone.py
+recursive-include scripts *.py
+recursive-include tests *.py
+recursive-include phylopower/datagene *.csv *.nwk
+recursive-include phylopower/datapro *.csv *.nwk

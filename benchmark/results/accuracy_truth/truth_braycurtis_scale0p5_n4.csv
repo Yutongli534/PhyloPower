@@ -1,0 +1,2 @@
+metric,between_scale,n_per_group,truth_power,n_draws,permutations,alpha,seconds
+braycurtis,0.5,4,0.2402,5000,999,0.05,24.2

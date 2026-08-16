@@ -1,0 +1,35 @@
+{
+  "dataset": "QinJ_2012",
+  "comparison": "type 2 diabetes versus control",
+  "source_abundance": "/Users/liyutong/Desktop/phylopower/validation_datasets/raw/curatedMetagenomicData/QinJ_2012/2021-10-14.QinJ_2012.relative_abundance.rda",
+  "source_reference_tarball": "/Users/liyutong/Desktop/phylopower/validation_datasets/raw/curatedMetagenomicData/_reference/curatedMetagenomicData_3.20.0.tar.gz",
+  "source_metadata": "curatedMetagenomicData/data/sampleMetadata.rda (from tarball)",
+  "source_tree": "curatedMetagenomicData/R/sysdata.rda phylogeneticTree (from tarball)",
+  "feature_level": "MetaPhlAn species rows (k__..|s__) matched exactly to package tree tip labels",
+  "tree_tip_match_rate": 0.9879,
+  "species_rows_total": 659,
+  "species_rows_matched": 651,
+  "abundance_unit": "MetaPhlAn relative abundance fraction x 1e6 (ppm pseudo-counts, rounded); skbio 0.6.0 casts table values to int64 in gemelli's fast_unifrac path",
+  "min_prevalence_samples": 2,
+  "output_features": 285,
+  "samples_per_group": 20,
+  "samples_total": 40,
+  "groups": {
+    "T2D": 20,
+    "control": 20
+  },
+  "available_group_sizes": {
+    "control": 174,
+    "T2D": 170
+  },
+  "excluded_samples_without_group": 19,
+  "selection_rule": "20 samples per group, gender-stratified random sampling proportional to stratum size (largest-remainder allocation), seed 20260614",
+  "tree": "curatedMetagenomicData 3.20.0 MetaPhlAn phylogenetic tree pruned to the retained species; unary nodes collapsed with branch lengths summed",
+  "outputs": {
+    "table": "table.csv",
+    "taxonomy": "taxonomy.csv",
+    "tree": "rooted-tree.nwk",
+    "group": "group.csv",
+    "checksums": "SHA256SUMS"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "modality": "Gene (Gemelli)",
+  "engine": "ordination",
+  "effect_grid": "power-uniform",
+  "eval_n": 80,
+  "pilot_ns": [
+    4,
+    7,
+    10,
+    30,
+    50,
+    80
+  ],
+  "target_power": 0.8,
+  "target_omega2": 0.05,
+  "pool_size_per_group": 300,
+  "boot_number": 20,
+  "permutations": 49,
+  "center_mode": "omega-calibrated",
+  "empirical_alpha": 0.041666666666666664,
+  "nominal_alpha": 0.05
+}

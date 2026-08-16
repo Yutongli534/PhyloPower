@@ -1,0 +1,20 @@
+{
+  "modality": "Protein (PhyloFunc)",
+  "engine": "ordination",
+  "effect_grid": "power-uniform",
+  "eval_n": 17,
+  "pilot_ns": [
+    7,
+    10,
+    17
+  ],
+  "target_power": 0.8,
+  "target_omega2": 0.05,
+  "pool_size_per_group": 300,
+  "boot_number": 20,
+  "permutations": 49,
+  "center_mode": "omega-calibrated",
+  "protein_generator": "template-mask",
+  "empirical_alpha": 0.05000000000000001,
+  "nominal_alpha": 0.05
+}

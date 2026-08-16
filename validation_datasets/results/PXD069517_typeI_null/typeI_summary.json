@@ -1,0 +1,22 @@
+{
+  "dataset": "PRIDE PXD069517 (CD_only vs PolyAI_CD)",
+  "alpha": 0.05,
+  "pools": 10,
+  "permutations": 199,
+  "eval_sizes": {
+    "14": {
+      "n_pvalues": 1000,
+      "rejection_rate_at_alpha": 0.041,
+      "rejection_rate_se": 0.006270486424512854,
+      "ks_uniform_statistic": 0.05400000000000005,
+      "ks_uniform_p": 0.005642833883630187
+    },
+    "80": {
+      "n_pvalues": 1000,
+      "rejection_rate_at_alpha": 0.052,
+      "rejection_rate_se": 0.007021111023192838,
+      "ks_uniform_statistic": 0.025000000000000022,
+      "ks_uniform_p": 0.551029213659362
+    }
+  }
+}

@@ -1,0 +1,4 @@
+workflow,eval_n,pilot_n,fit_status,power_at_target_omega2,target_omega2,joint_eval_n_count,joint_point_count
+protein,14,5,ok,0.8204273280722116,0.05,,
+protein,14,7,ok,0.8042327720972621,0.05,,
+protein,14,10,ok,0.7847506988632219,0.05,,

@@ -1,0 +1,23 @@
+{
+  "workflow": "gene",
+  "engine": "paper_raw_pool",
+  "generator": "PCAM",
+  "distance": "Gemelli",
+  "minimum_n_per_group": null,
+  "target_power": 0.8,
+  "target_omega2": 0.03,
+  "alpha": 0.05,
+  "observed_n_per_group": 10,
+  "pilot_n_per_group": 10,
+  "sweep_min_n": 2,
+  "sweep_max_n": 30,
+  "coarse_step": 10,
+  "stability_window": 1,
+  "pool_size_per_group": 180,
+  "boot_number": 100,
+  "permutations": 99,
+  "fit_bin_width": 0.003,
+  "pcam_gene_blocks": 20,
+  "tree_jitter_sigma": 0.0,
+  "tree_nni_prob": 0.0
+}

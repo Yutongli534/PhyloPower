@@ -1,0 +1,16 @@
+{
+  "dataset": "QinJ_2012",
+  "selection_rule": "full cohort: all samples with study_condition in {T2D, control}",
+  "groups": {
+    "T2D": 170,
+    "control": 174
+  },
+  "samples_total": 344,
+  "tree_tip_match_rate": 0.9879,
+  "species_rows_total": 659,
+  "species_rows_matched": 651,
+  "min_prevalence_samples": 2,
+  "output_features": 509,
+  "abundance_unit": "MetaPhlAn relative abundance fraction x 1e6 (ppm pseudo-counts, rounded)",
+  "tree": "curatedMetagenomicData 3.20.0 MetaPhlAn tree pruned to retained species"
+}

@@ -1,0 +1,7 @@
+workflow,eval_n,pilot_n,fit_status,power_at_target_omega2,target_omega2,joint_eval_n_count,joint_point_count
+gene,20,7,ok,0.26147627822753916,0.03,,
+gene,20,10,ok,0.23969854018880138,0.03,,
+gene,20,20,ok,0.26455629161772676,0.03,,
+gene,80,7,ok,0.855447367709426,0.03,,
+gene,80,10,ok,0.8581322858314614,0.03,,
+gene,80,20,ok,0.8368869626160698,0.03,,
