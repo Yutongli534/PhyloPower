@@ -16,14 +16,43 @@ ARCHIVE_ROOT = f"phylopower-{VERSION}"
 RELEASE_DIR = PROJECT_ROOT / "release"
 ARCHIVE_PATH = RELEASE_DIR / f"{ARCHIVE_ROOT}.zip"
 
+# Regenerable run outputs are excluded from the archive: every number in the
+# manuscript can be regenerated from the bundled inputs with the bundled
+# scripts, and the full evidence tree stays browsable on GitHub. Excluding
+# them keeps the citable archive lean (code + inputs + scripts).
+EXCLUDE_DIRS = (
+    "data/archived_runs/",
+    "data/gene_min_sample_size_output/",
+    "validation_datasets/results/",
+    # full-cohort conversions only fed the dropped end-to-end experiment;
+    # the subsampling-truth numbers they produced are recorded in
+    # figures/output/suppfig2_source_data.csv. Full trees stay on GitHub.
+    "validation_datasets/processed/QinJ_2012_full/",
+    "validation_datasets/processed/YachidaS_2019_full/",
+)
+
+# regenerable image outputs that happen to live inside data directories
+EXCLUDE_FILES = {
+    "data/figdata/protein_mdctf_curve/comparison.png",
+    "data/pilot_information_supplement/pilot_information_supplement.png",
+    "data/pilot_information_supplement/pilot_information_supplement.pdf",
+}
+
+
 def release_files() -> list[str]:
-    """The release archive mirrors the curated public tree: every git-tracked
-    file (scratch and local-only material is gitignored), minus submission-only
-    TIFF rasters (PNG/PDF/SVG versions are archived instead)."""
+    """The release archive mirrors the curated public tree (every git-tracked
+    file; scratch and local-only material is gitignored), minus submission-only
+    TIFF rasters and regenerable run outputs (see EXCLUDE_DIRS)."""
     out = subprocess.run(
         ["git", "ls-files"], cwd=PROJECT_ROOT, check=True, capture_output=True, text=True
     )
-    return [f for f in out.stdout.split() if not f.lower().endswith((".tiff", ".tif"))]
+    return [
+        f
+        for f in out.stdout.split()
+        if not f.lower().endswith((".tiff", ".tif"))
+        and not any(f.startswith(d) for d in EXCLUDE_DIRS)
+        and f not in EXCLUDE_FILES
+    ]
 
 
 def sha256_bytes(data: bytes) -> str:
