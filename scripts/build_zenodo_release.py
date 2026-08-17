@@ -31,6 +31,16 @@ EXCLUDE_DIRS = (
     "validation_datasets/processed/YachidaS_2019_full/",
 )
 
+# figures/output/ keeps only hand-made (non-regenerable) assets in the
+# archive; every scripted figure can be regenerated with figures/*.py
+KEEP_OUTPUT = (
+    "figures/output/figure1_workflow.png",
+    "figures/output/Figure2_corrected.png",
+    "figures/output/Figure5_corrected.png",
+    "figures/output/Figure8_corrected.png",
+    "figures/output/figure2_manuscript_panels/",
+)
+
 # regenerable image outputs that happen to live inside data directories
 EXCLUDE_FILES = {
     "data/figdata/protein_mdctf_curve/comparison.png",
@@ -52,6 +62,10 @@ def release_files() -> list[str]:
         if not f.lower().endswith((".tiff", ".tif"))
         and not any(f.startswith(d) for d in EXCLUDE_DIRS)
         and f not in EXCLUDE_FILES
+        and not (
+            f.startswith("figures/output/")
+            and not any(f.startswith(k) for k in KEEP_OUTPUT)
+        )
     ]
 
 
