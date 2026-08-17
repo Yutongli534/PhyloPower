@@ -17,7 +17,10 @@ Panel (b): PXD069517 (no genuine group difference, realized omega2 ~ -0.007)
 Default mode (no arguments) only plots, from the PhyloPower archived runs and
 the archived PXD069517 null p-value CSV at
 ``validation_datasets/results/PXD069517_typeI_null/typeI_null_pvalues.csv``.
-It runs in the base environment (matplotlib/numpy/pandas only)::
+It runs in the base environment (matplotlib/numpy/pandas only). If that CSV
+is missing (e.g. a release checkout without the archived results), default
+mode automatically falls back to the ``--compute`` path below and prints a
+notice::
 
     python3 figures/suppfig2_feasibility_spectrum.py
 
@@ -308,6 +311,17 @@ def parse_args():
 
 def main() -> None:
     args = parse_args()
+    if not args.compute and not PXD_PVALS.exists():
+        # Fallback: the release ships no archived results, so default mode
+        # recomputes the null calibration first instead of dying with
+        # FileNotFoundError.
+        print(
+            f"[suppfig2] archived data not found ({PXD_PVALS}); computing from scratch "
+            "(--compute with default knobs; this can take a while and needs the QIIME2 "
+            "metagenome env) ...",
+            flush=True,
+        )
+        args.compute = True
     if args.compute:
         run_compute(args)
 

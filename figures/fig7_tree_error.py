@@ -6,7 +6,10 @@ Columns are metagenomics/Gemelli and metaproteomics/PhyloFunc.
 
 Default mode only plots from the archived run
 (data/archived_runs/fig5_rerun_20260701/: the _hm/*.npz heatmap shards and
-fig7_tree_perturbation_curves_rerun.csv); nothing is recomputed.
+fig7_tree_perturbation_curves_rerun.csv); nothing is recomputed. If any of
+those inputs is missing (e.g. a release checkout without the archived data),
+default mode automatically falls back to the --compute path below and prints
+a notice.
 
 With --compute, the archived run data is regenerated first (computation ported
 verbatim from the retired producer analysis/produce_tree_error_heatmaps.py):
@@ -384,6 +387,29 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=INDIR,
                     help="compute output dir (default: the archived run dir).")
     args = ap.parse_args()
+
+    if not args.compute:
+        # Fallback: the release ships no archived run data, so when a
+        # required plotting input (the refitted-curves CSV, or the per-modality
+        # heatmap shards) is missing, recompute first instead of dying with
+        # FileNotFoundError.
+        hm_dir = INDIR / "_hm"
+        missing = []
+        if not (INDIR / "fig7_tree_perturbation_curves_rerun.csv").exists():
+            missing.append(INDIR / "fig7_tree_perturbation_curves_rerun.csv")
+        for modality in ("gene", "protein"):
+            if not any(hm_dir.glob(f"{modality}_*.npz")):
+                missing.append(hm_dir / f"{modality}_*.npz")
+        if missing:
+            print(
+                f"[fig7] archived data not found ({', '.join(str(m) for m in missing)}); "
+                "computing from scratch (--compute with default knobs: a 20x20 grid for both "
+                "modalities plus the refitted curves; this can take a long time and needs the "
+                "QIIME 2 env for gene) ...",
+                flush=True,
+            )
+            args.compute = True
+            args.out = INDIR  # compute must refresh the directory the plot reads
 
     if args.compute:
         compute_tree_error(args)

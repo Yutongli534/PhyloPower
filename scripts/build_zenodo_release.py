@@ -21,7 +21,15 @@ ARCHIVE_PATH = RELEASE_DIR / f"{ARCHIVE_ROOT}.zip"
 # scripts, and the full evidence tree stays browsable on GitHub. Excluding
 # them keeps the citable archive lean (code + inputs + scripts).
 EXCLUDE_DIRS = (
-    "data/archived_runs/",
+    # archived run outputs are regenerable via figures/*.py --compute, EXCEPT
+    # the tree_error_fig5_like* curve CSVs, which have no compute path
+    # (kept below so Fig 8 stays reproducible from the archive alone)
+    "data/archived_runs/_fig5data_core_gene_omega003_power08/",
+    "data/archived_runs/_fig5data_core_gene_omega003_power08_max80/",
+    "data/archived_runs/_fig5data_core_protein_omega003_power08/",
+    "data/archived_runs/fig2_fidelity_audit/",
+    "data/archived_runs/fig4_new/",
+    "data/archived_runs/fig5_rerun_20260701/",
     "data/gene_min_sample_size_output/",
     "validation_datasets/results/",
     # full-cohort conversions only fed the dropped end-to-end experiment;
@@ -60,6 +68,10 @@ def release_files() -> list[str]:
         f
         for f in out.stdout.split()
         if not f.lower().endswith((".tiff", ".tif"))
+        and not (
+            f.startswith("data/archived_runs/")
+            and f.lower().endswith((".png", ".pdf"))
+        )
         and not any(f.startswith(d) for d in EXCLUDE_DIRS)
         and f not in EXCLUDE_FILES
         and not (

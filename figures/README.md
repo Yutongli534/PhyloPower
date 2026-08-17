@@ -17,6 +17,23 @@ simulations first (same seeds, defaults, filenames and CSV columns as the
 original producers, which are archived in `_archive_scripts/`). Final figure
 files land in `figures/output/`.
 
+**Missing-data fallback:** the release package does not ship the archived
+CSVs/run data. If a script's required archived inputs are absent, its default
+mode automatically switches to the compute path (same compute functions and
+default parameters as `--compute`), printing a one-line notice such as
+`[fig5] archived data not found ...; computing from scratch (this can take a
+while) ...`. When the archived data is present, default-mode behavior is
+unchanged. Note that `fig8_tree_error_power.py --compute` only covers its two
+retired producers; the study-size/consistency/extrapolation tables it plots
+come from the gene/protein power-workflow CLIs, so after the fallback compute
+the script stops with an explicit message if those are still missing.
+`suppfig3_independent_cohorts.py` regenerates missing panel sources by
+re-running the full per-cohort validation pipeline
+(`scripts/run_gene_pilot_sensitivity.py`), which can take hours.
+`fig4_effect_modulation.py` is an exception: its panels (a,b) plot the
+archived `data/figdata/parameter_omega_dense_current_method_v4.csv`, which has
+no compute path in the repo, so that CSV must be present.
+
 Run everything from the repository root. Plotting works with the base Python 3
 environment; scripts marked **QIIME** rebuild synthetic pools (and all
 gene-side `--compute` modes) and must run with the QIIME 2 / Gemelli

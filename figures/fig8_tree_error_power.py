@@ -26,6 +26,12 @@ here were produced by the gene/protein power-workflow CLIs, not by the two
 retired producers above; --compute refreshes only what those producers wrote.
 Compute mode needs the QIIME 2 env for gene (Gemelli):
     /opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python figures/fig8_tree_error_power.py --compute all
+
+If the archived plot inputs are missing (e.g. a release checkout without the
+archived runs), default mode automatically falls back to `--compute all` and
+prints a notice. Because --compute cannot regenerate the power-workflow CLI
+tables, the fallback then stops with an explicit message naming what is still
+missing instead of a bare FileNotFoundError.
 """
 from __future__ import annotations
 
@@ -659,6 +665,42 @@ def append_fixed_midpoints(df: pd.DataFrame, modality: str, pilots: list[int]) -
     return out
 
 
+def _missing_plot_inputs() -> List[Path]:
+    """Required default-mode plot inputs currently absent from the archived runs.
+
+    The fixed-midpoint supplement tables are optional (append_fixed_midpoints
+    tolerates their absence), so they are not listed here.
+    """
+    missing = [
+        p
+        for p in (
+            DATA_DIR / "gene_study_size" / "gene_evalsweep_raw.csv",
+            DATA_DIR / "protein_study_size" / "protein_evalsweep_raw.csv",
+            DATA_DIR / "gene_pilot_consistency" / "gene_power_curves_raw.csv",
+            DATA_DIR / "protein_pilot_consistency" / "protein_power_curves_raw.csv",
+        )
+        if not p.exists()
+    ]
+    gene_extrapolation = [
+        FULL25_DIR / "gene_pilot_extrapolation" / "gene_power_curves_raw.csv",
+        DATA_DIR / "gene_pilot_extrapolation" / "gene_power_curves_raw.csv",
+    ]
+    if not any(p.exists() for p in gene_extrapolation):
+        missing.append(gene_extrapolation[-1])
+    protein_combined = DATA_DIR / "protein_pilot_extrapolation_refit" / "protein_power_curves_raw_combined.csv"
+    protein_extrapolation = [
+        FULL25_DIR / "protein_pilot_extrapolation" / "protein_power_curves_raw.csv",
+        protein_combined,
+    ]
+    per_pilot = [
+        DATA_DIR / "protein_pilot_extrapolation_refit" / f"p{pn}" / "protein_power_curves_raw.csv"
+        for pn in protein_fig.PILOT_KEYS
+    ]
+    if not any(p.exists() for p in protein_extrapolation) and not all(p.exists() for p in per_pilot):
+        missing.append(protein_combined)
+    return missing
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Figure 8: tree-error sample-size supplement (Figure 5 layout).")
     ap.add_argument("--compute", choices=["curves", "midpoint", "all"], default=None,
@@ -689,10 +731,50 @@ def main() -> None:
     ap.add_argument("--out-dir", type=Path, default=BASE / "fixed_midpoint_supplement")
     args = ap.parse_args()
 
+    fallback = False
+    if args.compute is None:
+        # Fallback: the release ships no archived runs, so when required plot
+        # inputs are missing, recompute what this script's producers cover
+        # (same as --compute with default knobs) instead of dying with
+        # FileNotFoundError.
+        missing = _missing_plot_inputs()
+        if missing:
+            fallback = True
+            print(
+                f"[fig8] archived data not found ({', '.join(str(m) for m in missing)}); "
+                "computing from scratch (--compute all; this can take a while and needs the "
+                "QIIME 2 env for gene) ...",
+                flush=True,
+            )
+            args.compute = "all"
+
     if args.compute in ("curves", "all"):
         compute_curves(args)
     if args.compute in ("midpoint", "all"):
-        compute_midpoint(args)
+        if fallback and not (
+            (BASE / "gene_pilot_extrapolation" / "gene_power_curves_raw.csv").exists()
+            and (BASE / "protein_pilot_extrapolation_refit" / "protein_power_curves_raw_combined.csv").exists()
+        ):
+            # The midpoint producer reads the archived extrapolation curves as
+            # its own input (existing_curve); without them it cannot run.
+            print(
+                "[fig8] skipping the midpoint supplement: its inputs (the archived "
+                "pilot-extrapolation curves) are unavailable",
+                flush=True,
+            )
+        else:
+            compute_midpoint(args)
+
+    if fallback:
+        still_missing = _missing_plot_inputs()
+        if still_missing:
+            raise SystemExit(
+                "[fig8] compute finished, but these plot inputs are still missing:\n  "
+                + "\n  ".join(str(m) for m in still_missing)
+                + "\nThey were produced by the gene/protein power-workflow CLIs "
+                "(analysis/gene_power_workflow.py, analysis/protein_power_workflow.py), "
+                "which this script's --compute does not cover; regenerate them first."
+            )
 
     gene_fig.apply_local_style()
     plt.rcParams.update(

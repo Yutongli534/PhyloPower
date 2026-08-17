@@ -7,7 +7,10 @@ pilot extrapolation. Columns are metagenomics followed by metaproteomics.
 Default (no arguments): plot from the archived CSVs
 (`data/figdata/fig4_power_curves.csv` and
 `data/archived_runs/fig4_new/fig4_mdctf_mc_power_curves.csv`); this works in
-the base env and is unchanged from before.
+the base env and is unchanged from before. If either CSV is missing (e.g. a
+release checkout without the archived data), default mode automatically
+falls back to recomputing the missing side(s) as with `--compute`, and
+prints a notice.
 
 `--compute gene|protein|all`: recompute the corresponding CSV(s) first, then
 plot. The compute code is ported verbatim from the retired producers
@@ -601,6 +604,26 @@ def main(argv=None) -> None:
     q.add_argument("--protein-seed", type=int, default=20260627)
     args = p.parse_args(argv)
 
+    if args.compute is None:
+        # Fallback: the release ships no archived CSVs, so when a required
+        # plotting input is missing, recompute that side first (same as
+        # --compute with default knobs) instead of dying with
+        # FileNotFoundError. The fig4_metagenomics_panel_* CSVs stay
+        # optional: plot_figure() already degrades gracefully without them.
+        gene_csv = FIGDATA / "fig4_power_curves.csv"
+        protein_csv = args.protein_out / "fig4_mdctf_mc_power_curves.csv"
+        missing = [p for p in (gene_csv, protein_csv) if not p.exists()]
+        if missing:
+            args.compute = (
+                "all" if len(missing) == 2 else ("gene" if missing[0] == gene_csv else "protein")
+            )
+            print(
+                f"[fig5] archived data not found ({', '.join(str(m) for m in missing)}); "
+                f"computing from scratch (--compute {args.compute}; this can take a while"
+                + (" and needs the QIIME 2 env for gene" if args.compute in ("gene", "all") else "")
+                + ") ...",
+                flush=True,
+            )
     if args.compute in ("gene", "all"):
         compute_gene_power_curves(args)
     if args.compute in ("protein", "all"):

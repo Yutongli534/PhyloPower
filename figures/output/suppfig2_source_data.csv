@@ -4,5 +4,5 @@ Pediatric IBD TI CD vs Control (metaproteomic),0.225,10,PhyloPower archived run 
 QinJ_2012 T2D vs control,0.009,65,full-cohort subsampling truth
 YachidaS_2019 CRC vs control,0.002,180,full-cohort subsampling truth
 PXD069517 CD_only vs PolyAI_CD (null cohort),-0.007,none (refused),PhyloPower run on true-null cohort
-"PXD069517 null pools, n=14",,,1000 null p-values; rejection 0.041
-"PXD069517 null pools, n=80",,,1000 null p-values; rejection 0.052
+"PXD069517 null pools, n=14",,,2 null p-values; rejection 0.000
+"PXD069517 null pools, n=80",,,2 null p-values; rejection 0.000

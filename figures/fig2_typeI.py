@@ -7,7 +7,9 @@ cite panels in order: (a,b) QQ plots, (c,d) empirical-vs-nominal alpha,
 pair.
 
 Default mode only plots from the archived null p-value table
-(data/figdata/fig1_null_pvalues.csv); no simulations are run.
+(data/figdata/fig1_null_pvalues.csv); no simulations are run. If that table
+is missing (e.g. a release checkout without the archived data), default mode
+automatically falls back to the --compute path below and prints a notice.
 
 With --compute, the null p-value simulations are re-run first (ported verbatim
 from the retired producer analysis/produce_typeI_null_pvalues.py): gene uses
@@ -19,6 +21,9 @@ summary stats to <out>/fig1_summary.json, and the same 3x2 figure is then
 plotted from the freshly computed p-values. Compute mode needs the QIIME 2
 env for gene (Gemelli):
     /opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python figures/fig2_typeI.py --compute
+On macOS, if the forked gene-side workers die with an Objective-C
+"initialize may have been in progress in another thread when fork() was
+called" crash, launch with OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES.
 """
 from __future__ import annotations
 
@@ -139,6 +144,13 @@ mdctf_mc_pool = None  # from _protein_mdctf_mc, bound by _load_compute_deps()
 def _load_compute_deps() -> None:
     """Bind the heavy compute-only modules (same idiom as the retired producer)."""
     global P, mdctf_mc_pool
+    # Same wiring note as fig5_power_curves.compute_gene_power_curves: fork is
+    # required so pcam_gen's ProcessPoolExecutor workers inherit the
+    # fully-initialized modules; under macOS's default spawn start method the
+    # gene-side pool dies with BrokenProcessPool.
+    import multiprocessing as mp
+    if "fork" in mp.get_all_start_methods():
+        mp.set_start_method("fork", force=True)
     sys.path.insert(0, str(ROOT))
     sys.path.insert(0, str(ROOT / "figures"))  # shared figstyle
     from phylopower import core  # import first: installs the embedded-module finder
@@ -350,6 +362,15 @@ def main() -> None:
     args = ap.parse_args()
 
     eval_ns = [int(x) for x in args.eval_ns.split(",") if x.strip()]
+    if not args.compute and not args.cache.exists():
+        # Fallback: the release ships no archived CSVs, so default mode
+        # recomputes first instead of dying with FileNotFoundError.
+        print(
+            f"[fig2] archived data not found ({args.cache}); computing from scratch "
+            "(this can take a while and needs the QIIME 2 env for gene) ...",
+            flush=True,
+        )
+        args.compute = True
     if args.compute:
         pdat, gdat = _compute_null_pvalues(args)
         fig1_summary = {

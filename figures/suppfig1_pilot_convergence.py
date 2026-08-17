@@ -6,7 +6,9 @@ metaproteomic PXD069517 (c,d) from validation_datasets/results/
 PXD069517_pilot_information/. Only plots archived metrics tables.
 
 Default (no arguments): plot only, from the archived metrics tables.  Works in
-the base Python 3 environment.
+the base Python 3 environment.  If a metrics table is missing (e.g. a release
+checkout without the archived data), default mode automatically falls back to
+recomputing the missing side(s) as with ``--compute``, and prints a notice.
 
 ``--compute gene`` / ``--compute protein`` / ``--compute all`` first recompute
 the corresponding archive(s) exactly as the retired producers
@@ -598,7 +600,10 @@ def load_pxd_protein(group_file: Path, table_file: Path, tree_file: Path, K_prot
     return dict(
         modality="protein", abund=abund, L=L, dev=dev, unit=unit, uid=uid,
         rows=rows, gs=gs, groups=groups,
-        other={groups[0]: groups[1], groups[1]: groups[0]},
+        # Complement donor pool per group (indices), matching the current
+        # pcam_gen.load_modality convention; for two groups this is exactly
+        # gs[<other group>], so the two-group RNG stream is unchanged.
+        other={g: np.concatenate([gs[h] for h in groups if h != g]) for g in groups},
         libs=abund[:, pall].sum(0),
         meta=df[["Taxon", "Function"]].reset_index(drop=True),
         tree_path=str(tree_file), post=None,
@@ -1088,6 +1093,28 @@ def plot() -> None:
 
 def main() -> None:
     args = parse_args()
+    if args.compute is None:
+        # Fallback: the release ships no archived metrics tables, so when a
+        # required plotting input is missing, recompute that side first (same
+        # as --compute with default knobs) instead of dying with
+        # FileNotFoundError.
+        missing = [p for p in (GENE_DATA, PROT_DATA) if not p.exists()]
+        if missing:
+            args.compute = (
+                "all" if len(missing) == 2 else ("gene" if missing[0] == GENE_DATA else "protein")
+            )
+            # The compute-side --gene-out/--protein-out defaults are
+            # cwd-relative; anchor them so compute refreshes the exact files
+            # plot() reads even when invoked outside the repo root.
+            args.gene_out = GENE_DATA.parent
+            args.protein_out = PROT_DATA.parent
+            print(
+                f"[suppfig1] archived data not found ({', '.join(str(m) for m in missing)}); "
+                f"computing from scratch (--compute {args.compute}; this can take a while"
+                + (" and needs the QIIME 2 env for gene" if args.compute in ("gene", "all") else "")
+                + ") ...",
+                flush=True,
+            )
     if args.compute in ("gene", "all"):
         compute_gene(args)
     if args.compute in ("protein", "all"):
