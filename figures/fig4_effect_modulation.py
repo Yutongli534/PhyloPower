@@ -14,6 +14,21 @@ Panels:
 Run with the QIIME/Gemelli environment:
 
   /opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python figures/fig4_effect_modulation.py
+
+Default invocation (no --compute) only plots, using the archived inputs above.
+
+Compute submodes (self-contained gene-side data producers, ported verbatim
+from the retired analysis/run_gene_fig4_panel_*.py scripts now kept in
+_archive_scripts/):
+
+  --compute dense     regenerate data/archived_runs/fig4_new/fig4_metagenomics_panel_a_dense.csv
+  --compute refined   regenerate data/archived_runs/fig4_new/fig4_metagenomics_panel_a_4710_refined.csv
+  --compute panel_c   regenerate data/archived_runs/fig4_new/fig4_metagenomics_panel_c_extra_pilots.csv
+  --compute all       run all three producers
+
+Each compute submode runs its producer(s) first, then the normal plotting.
+Compute needs the QIIME env:
+/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python.
 """
 from __future__ import annotations
 
@@ -449,9 +464,255 @@ def _panel_letter(ax, letter: str) -> None:
     )
 
 
+# ---------------------------------------------------------------------------
+# --compute submodes: gene-side data producers
+#
+# Ported verbatim (seeds, defaults, output filenames, CSV columns unchanged)
+# from the retired scripts analysis/run_gene_fig4_panel_a_dense.py,
+# analysis/run_gene_fig4_panel_a_4710_refined.py, and
+# analysis/run_gene_fig4_panel_c_extra_pilots.py (now in _archive_scripts/).
+# ---------------------------------------------------------------------------
+
+FIG4_NEW_DIR = ROOT / "data" / "archived_runs" / "fig4_new"
+
+_PANEL_A_DENSE_GRID = [
+    (0.50, 1.00),
+    (0.55, 1.00),
+    (0.60, 1.00),
+    (0.65, 1.00),
+    (0.70, 1.00),
+    (0.75, 1.00),
+    (0.80, 1.00),
+    (0.84, 1.00),
+    (0.88, 1.00),
+    (0.91, 1.00),
+    (0.94, 1.00),
+    (0.96, 1.00),
+    (0.98, 1.00),
+    (1.00, 1.00),
+    (1.00, 1.10),
+    (1.00, 1.20),
+    (1.00, 1.30),
+    (1.00, 1.45),
+    (1.00, 1.60),
+    (1.00, 1.80),
+]
+
+
+def _compute_panel_a_dense() -> None:
+    """Generate a dense metagenomic Fig.4 panel-A study-size table."""
+    out = FIG4_NEW_DIR / "fig4_metagenomics_panel_a_dense.csv"
+    pilot_n = 10
+    pilot_seed = 1000 + pilot_n * 1009 + 777
+    pool_m = 300
+    boot = 100
+    eval_ns = (4, 7, 10, 30, 50, 80)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    jobs = []
+    for i, (pi, scale) in enumerate(_PANEL_A_DENSE_GRID):
+        jobs.append(
+            (
+                float(pi),
+                float(scale),
+                pool_m,
+                pilot_seed + 7000 + i * 131,
+                eval_ns,
+                boot,
+                pilot_n,
+                pilot_seed,
+            )
+        )
+    print(f"[gene-panel-a-dense] jobs={len(jobs)} eval_ns={eval_ns}", flush=True)
+    results = P.eval_pilot("gene", jobs, n_workers=6)
+
+    rows = []
+    for pn, pseed, pi, scale, omega, powers in results:
+        for en in eval_ns:
+            rows.append(
+                {
+                    "modality": "gene",
+                    "panel": "b_dense",
+                    "pilot": int(pn),
+                    "pilot_seed": int(pseed),
+                    "pi": float(pi),
+                    "scale": float(scale),
+                    "eval_n": int(en),
+                    "true_omega2": float(omega),
+                    "power": float(powers[en]),
+                }
+            )
+    df = pd.DataFrame(rows).sort_values(["eval_n", "true_omega2", "pi", "scale"])
+    df.to_csv(out, index=False)
+    print(f"[gene-panel-a-dense] wrote {out} shape={df.shape}", flush=True)
+
+
+def _compute_panel_a_4710_refined() -> None:
+    """Refine metagenomic Fig.4 panel-A low-n study-size estimates."""
+    out = FIG4_NEW_DIR / "fig4_metagenomics_panel_a_4710_refined.csv"
+    pilot_n = 10
+    pilot_seed = 1000 + pilot_n * 1009 + 777
+    pool_m = 300
+    boot = 500
+    eval_ns = (4, 7, 10)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    jobs = []
+    for i, (pi, scale) in enumerate(_PANEL_A_DENSE_GRID):
+        jobs.append(
+            (
+                float(pi),
+                float(scale),
+                pool_m,
+                pilot_seed + 7000 + i * 131,
+                eval_ns,
+                boot,
+                pilot_n,
+                pilot_seed,
+            )
+        )
+    print(f"[gene-panel-a-4710] jobs={len(jobs)} eval_ns={eval_ns} boot={boot}", flush=True)
+    results = P.eval_pilot("gene", jobs, n_workers=6)
+
+    rows = []
+    for pn, pseed, pi, scale, omega, powers in results:
+        for en in eval_ns:
+            rows.append(
+                {
+                    "modality": "gene",
+                    "panel": "b_dense_refined",
+                    "pilot": int(pn),
+                    "pilot_seed": int(pseed),
+                    "pi": float(pi),
+                    "scale": float(scale),
+                    "eval_n": int(en),
+                    "true_omega2": float(omega),
+                    "power": float(powers[en]),
+                    "boot": int(boot),
+                }
+            )
+    df = pd.DataFrame(rows).sort_values(["eval_n", "true_omega2", "pi", "scale"])
+    df.to_csv(out, index=False)
+    print(f"[gene-panel-a-4710] wrote {out} shape={df.shape}", flush=True)
+
+
+# --- panel-C extra pilots (process-pool worker state) -----------------------
+
+_PANEL_C_BASE = None
+_PANEL_C_PILOTS: dict = {}
+
+
+def _panel_c_as_gene_raw_dict(base: dict, tab: pd.DataFrame, sgm: pd.Series) -> dict:
+    groups = list(pd.unique(sgm))
+    e = dict(base)
+    e["abund"] = tab.to_numpy(dtype=float)
+    e["L"] = np.log1p(e["abund"])
+    e["groups"] = groups
+    e["gs"] = {g: np.where(sgm.to_numpy() == g)[0] for g in groups}
+    pall = np.concatenate([e["gs"][g] for g in groups])
+    e["libs"] = e["abund"][:, pall].sum(axis=0)
+    grand = e["L"][:, pall].mean(axis=1)
+    e["dev"] = {g: e["L"][:, e["gs"][g]].mean(axis=1) - grand for g in groups}
+    return e
+
+
+def _panel_c_make_gene_pilot(base: dict, pilot_n: int, seed: int) -> dict:
+    observed_n = min(len(base["gs"][g]) for g in base["groups"])
+    if pilot_n <= observed_n:
+        return P.pilot_view(base, pilot_n, seed)
+    tab, sgm = P.pcam_pool(base, pilot_n, seed, pi=1.0, scale=1.0, ndon=1)
+    return _panel_c_as_gene_raw_dict(base, tab, sgm)
+
+
+def _panel_c_init() -> None:
+    import os
+
+    global _PANEL_C_BASE
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
+    core.load_core_runtime()
+    _PANEL_C_BASE = P.load_modality("gene")
+
+
+def _panel_c_task(job: tuple[int, int, float, float, int]) -> dict:
+    from semisynthetic_power import summarize_distance_metrics_with_replacement
+
+    core.load_core_runtime()
+    pilot_n, pilot_seed, pi, scale, gen_seed = job
+    key = (pilot_n, pilot_seed)
+    if key not in _PANEL_C_PILOTS:
+        _PANEL_C_PILOTS[key] = _panel_c_make_gene_pilot(_PANEL_C_BASE, pilot_n, pilot_seed)
+    pilot = _PANEL_C_PILOTS[key]
+    tab, sgm = P.pcam_pool(pilot, 300, gen_seed, pi=pi, scale=scale, ndon=1)
+    dm = P.recompute_distance(pilot, tab)
+    omega = max(0.0, float(core.compute_omega2(dm, sgm)))
+    metrics = summarize_distance_metrics_with_replacement(
+        dm=dm,
+        group_map=sgm,
+        boot_number=100,
+        alpha=0.05,
+        n_jobs=1,
+        random_seed=gen_seed + 80 + 31,
+        n_per_group=80,
+        permutations=99,
+        omega2_floor=0.0,
+    )
+    return {
+        "modality": "gene",
+        "panel": "c_extra",
+        "pilot": int(pilot_n),
+        "pilot_seed": int(pilot_seed),
+        "pi": float(pi),
+        "scale": float(scale),
+        "eval_n": int(80),
+        "true_omega2": float(omega),
+        "power": float(metrics["power"]),
+    }
+
+
+def _compute_panel_c_extra_pilots() -> None:
+    """Generate extra metagenomic Fig.4 panel-C pilot-extrapolation curves."""
+    from concurrent.futures import ProcessPoolExecutor
+
+    out = FIG4_NEW_DIR / "fig4_metagenomics_panel_c_extra_pilots.csv"
+    pilots = (30, 50, 80)
+    seed0 = 1000
+    gene_grid = [
+        (0.50, 1.00),
+        (0.60, 1.00),
+        (0.68, 1.00),
+        (0.75, 1.00),
+        (0.82, 1.00),
+        (0.88, 1.00),
+        (0.93, 1.00),
+        (0.97, 1.00),
+        (1.00, 1.00),
+        (1.00, 1.30),
+        (1.00, 1.70),
+    ]
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    jobs = []
+    for pn in pilots:
+        pilot_seed = seed0 + pn * 1009
+        for i, (pi, scale) in enumerate(gene_grid):
+            jobs.append((pn, pilot_seed, float(pi), float(scale), seed0 + pn * 10000 + i * 131))
+    print(f"[gene-panel-c-extra] jobs={len(jobs)} pilots={pilots}", flush=True)
+    with ProcessPoolExecutor(max_workers=6, initializer=_panel_c_init) as ex:
+        rows = list(ex.map(_panel_c_task, jobs))
+    df = pd.DataFrame(rows).sort_values(["pilot", "true_omega2", "pi", "scale"])
+    df.to_csv(out, index=False)
+    print(f"[gene-panel-c-extra] wrote {out} shape={df.shape}", flush=True)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=OUTDIR)
+    parser.add_argument(
+        "--compute",
+        choices=["dense", "refined", "panel_c", "all"],
+        default=None,
+        help="run a gene-side data producer first (writes data/archived_runs/fig4_new/), then plot as usual",
+    )
     parser.add_argument("--pool-M", type=int, default=100, help="synthetic samples per group shown in each PCoA panel")
     parser.add_argument("--select-M", type=int, default=60, help="synthetic samples per group used for effect-parameter selection")
     parser.add_argument("--seed", type=int, default=20260616)
@@ -466,6 +727,14 @@ def main(argv=None):
         help="protein taxon-function table matching the group map (cleaned2.csv pairs with group2.csv)",
     )
     args = parser.parse_args(argv)
+
+    if args.compute in ("dense", "all"):
+        _compute_panel_a_dense()
+    if args.compute in ("refined", "all"):
+        _compute_panel_a_4710_refined()
+    if args.compute in ("panel_c", "all"):
+        _compute_panel_c_extra_pilots()
+
     args.out.mkdir(parents=True, exist_ok=True)
 
     apply_style()

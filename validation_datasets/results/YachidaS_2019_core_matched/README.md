@@ -67,7 +67,7 @@ versus control). This run uses the same conceptual design as the
 `skbio.stats.distance.permanova` with a `seed` keyword (scikit-bio 0.6.0 in
 the validated QIIME 2 environment lacks it and permutes through the global
 `numpy.random` state) and otherwise delegates to
-`analysis/run_cli_pilot_sensitivity.py` unchanged.
+`scripts/run_validation_pilot_sensitivity.py` unchanged.
 
 ## Target-effect comparison
 

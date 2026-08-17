@@ -9,14 +9,18 @@ script: run any `fig*.py` / `suppfig*.py` here and the PNG/PDF/SVG land in
 `figures/output/`.
 
 
-One script per manuscript figure. Scripts here only **plot** — the heavy
-simulation drivers that produced the archived input data live in
-[`analysis/`](../analysis). Archived run data live under `data/`; final figure
+One self-contained script per manuscript figure: each script both **plots**
+and (behind a `--compute` flag) **recomputes** its archived input data. Run
+with no arguments to plot from the archived data under `data/` and
+`validation_datasets/`; run with `--compute` to re-run the underlying
+simulations first (same seeds, defaults, filenames and CSV columns as the
+original producers, which are archived in `_archive_scripts/`). Final figure
 files land in `figures/output/`.
 
-Run everything from the repository root. Archive-driven scripts work with the
-base Python 3 environment; scripts marked **QIIME** rebuild synthetic pools and
-must run with the QIIME 2 / Gemelli environment Python:
+Run everything from the repository root. Plotting works with the base Python 3
+environment; scripts marked **QIIME** rebuild synthetic pools (and all
+gene-side `--compute` modes) and must run with the QIIME 2 / Gemelli
+environment Python:
 
 ```bash
 QIIME=/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python
@@ -24,41 +28,37 @@ QIIME=/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python
 
 ## Figure map
 
-| Manuscript figure | Script | Input data | Output (`figures/output/`) | Env |
+| Manuscript figure | Script | Plot command | Recompute command | Output (`figures/output/`) |
 |---|---|---|---|---|
-| Fig. 1 (workflow) | — (no code) | — | `figure1_workflow.png` | — |
-| Fig. 2 (Type-I calibration) | `fig2_typeI.py` | `data/figdata/fig1_null_pvalues.csv` | `fig2_typeI_3x2_gene_first_wider_flat.png/.pdf` | base |
-| Fig. 3 (pool fidelity audit) | `fig3_pool_fidelity.py` | bundled demo data via `phylopower` | `fig3_pool_fidelity.png/.pdf` | QIIME |
-| Fig. 4 (effect modulation) | `fig4_effect_modulation.py` | `data/figdata/parameter_omega_dense_current_method_v4.csv` (a,b); pools rebuilt (c,d) | `fig4_effect_modulation.png/.pdf` | QIIME |
-| Fig. 5 (power curves) | `fig5_power_curves.py` | `data/figdata/fig4_power_curves.csv`, `data/archived_runs/fig4_new/*.csv` | `fig5_power_3x2_abcdef.png/.pdf` | base |
-| Fig. 6 (metric distributions) | `fig6_metric_distributions.py` | bundled demo data via `phylopower` | `fig6_metric_3x2_abcdef.png/.pdf` | QIIME |
-| Fig. 7 (tree-error heatmaps + curves) | `fig7_tree_error.py` | `data/archived_runs/fig5_rerun_20260701/` | `fig7_tree_error_3x2_abcdef.png/.pdf` | base |
-| Fig. 8 (tree-error power behavior) | `fig8_tree_error_power.py` | `data/archived_runs/tree_error_fig5_like_quick/`, `.../tree_error_fig5_like_full25/` | `tree_error_fig5_like_3x2.png/.pdf` | base |
-| Fig. S1 (pilot convergence, both modalities) | `suppfig1_pilot_convergence.py` | `data/pilot_information_supplement/` + `validation_datasets/results/PXD069517_pilot_information/` | `suppfig1_pilot_convergence.png/.pdf` | base |
-| Fig. S2 (feasibility spectrum + null safety) | `suppfig2_feasibility_spectrum.py` | archived runs + `validation_datasets/results/PXD069517_typeI_null/` | `suppfig2_feasibility_spectrum.png/.pdf` | base |
+| Fig. 1 (workflow) | — (no code) | — | — | `figure1_workflow.png` |
+| Fig. 2 (Type-I calibration) | `fig2_typeI.py` | `python3 figures/fig2_typeI.py` | `$QIIME figures/fig2_typeI.py --compute` | `fig2_typeI_3x2_gene_first_wider_flat.png/.pdf` |
+| Fig. 3 (pool fidelity audit) | `fig3_pool_fidelity.py` | `$QIIME figures/fig3_pool_fidelity.py` | (always rebuilds pools) | `fig3_pool_fidelity.png/.pdf` |
+| Fig. 4 (effect modulation) | `fig4_effect_modulation.py` | `$QIIME figures/fig4_effect_modulation.py` | `$QIIME figures/fig4_effect_modulation.py --compute dense\|refined\|panel_c\|all` | `fig4_effect_modulation.png/.pdf` |
+| Fig. 5 (power curves) | `fig5_power_curves.py` | `python3 figures/fig5_power_curves.py` | `$QIIME figures/fig5_power_curves.py --compute gene\|protein\|all` | `fig5_power_3x2_abcdef.png/.pdf` |
+| Fig. 6 (metric distributions) | `fig6_metric_distributions.py` | `$QIIME figures/fig6_metric_distributions.py` | (always rebuilds pools) | `fig6_metric_3x2_abcdef.png/.pdf` |
+| Fig. 7 (tree-error heatmaps + curves) | `fig7_tree_error.py` | `python3 figures/fig7_tree_error.py` | `$QIIME figures/fig7_tree_error.py --compute` | `fig7_tree_error_3x2_abcdef.png/.pdf` |
+| Fig. 8 (tree-error power behavior) | `fig8_tree_error_power.py` | `python3 figures/fig8_tree_error_power.py` | `$QIIME figures/fig8_tree_error_power.py --compute curves\|midpoint\|all` | `tree_error_fig5_like_3x2.png/.pdf` |
+| Fig. S1 (pilot convergence, both modalities) | `suppfig1_pilot_convergence.py` | `python3 figures/suppfig1_pilot_convergence.py` | `$QIIME figures/suppfig1_pilot_convergence.py --compute gene\|protein\|all` | `suppfig1_pilot_convergence.png/.pdf` |
+| Fig. S2 (feasibility spectrum + null safety) | `suppfig2_feasibility_spectrum.py` | `python3 figures/suppfig2_feasibility_spectrum.py` | `$QIIME figures/suppfig2_feasibility_spectrum.py --compute` | `suppfig2_feasibility_spectrum.png/.pdf` |
+| Fig. S3 (independent-cohort validation) | `suppfig3_independent_cohorts.py` | `python3 figures/suppfig3_independent_cohorts.py` | re-run `scripts/run_validation_pilot_sensitivity.py` per `validation_datasets/results/*_core_matched/README.md` | `suppfig3_independent_cohorts.png/.pdf` |
+| Graphical abstract | `graphical_abstract.py` | `python3 figures/graphical_abstract.py` | — | `graphical_abstract.png/.pdf` |
 
 Shared panel-drawing helpers for Fig. 5/Fig. 8 live in
 `_power_panels_gene.py` / `_power_panels_protein.py`; the shared publication
 style is `figstyle.py`.
 
-## Figures not generated here
+## Archived input data
 
-- **Fig. S3** (independent-cohort validation, QinJ_2012 / YachidaS_2019):
-  plotted directly from the validation run products under
-  `validation_datasets/results/*_core_matched/` (`sensitivity_pilot_curves.png/.pdf`).
-
-## Data producers (`analysis/`)
-
-| Data | Producer |
+| Script | Archived input |
 |---|---|
-| `data/figdata/fig1_null_pvalues.csv` | `analysis/produce_typeI_null_pvalues.py` |
-| `data/figdata/fig4_power_curves.csv` | `analysis/produce_power_curves_gene.py` |
-| `data/archived_runs/fig4_new/fig4_mdctf_mc_power_curves.csv` | `analysis/produce_power_curves_protein.py` |
-| `data/archived_runs/fig4_new/fig4_metagenomics_panel_*.csv` | `analysis/run_gene_fig4_panel_*.py` |
-| `data/archived_runs/fig5_rerun_20260701/` | `analysis/produce_tree_error_heatmaps.py` |
-| `data/archived_runs/tree_error_fig5_like_*/` | `analysis/run_tree_error_sample_size_curves.py` (+ `run_fixed_scale_midpoint_supplement.py`) |
-| `data/pilot_information_supplement/` | `analysis/run_pilot_information_supplement.py` |
-| `validation_datasets/results/PXD069517_pilot_information/` | `analysis/run_pilot_information_supplement_protein_pxd.py` |
+| `fig2_typeI.py` | `data/figdata/fig1_null_pvalues.csv` |
+| `fig4_effect_modulation.py` | `data/figdata/parameter_omega_dense_current_method_v4.csv` (a,b); pools rebuilt (c,d) |
+| `fig5_power_curves.py` | `data/figdata/fig4_power_curves.csv`, `data/archived_runs/fig4_new/*.csv` |
+| `fig7_tree_error.py` | `data/archived_runs/fig5_rerun_20260701/` |
+| `fig8_tree_error_power.py` | `data/archived_runs/tree_error_fig5_like_quick/`, `.../tree_error_fig5_like_full25/` |
+| `suppfig1_pilot_convergence.py` | `data/pilot_information_supplement/` + `validation_datasets/results/PXD069517_pilot_information/` |
+| `suppfig2_feasibility_spectrum.py` | archived runs + `validation_datasets/results/PXD069517_typeI_null/` |
+| `suppfig3_independent_cohorts.py` | `validation_datasets/results/*_core_matched/` (`sensitivity_pilot_curves.png/.pdf`) |
 
 ## Provenance notes
 

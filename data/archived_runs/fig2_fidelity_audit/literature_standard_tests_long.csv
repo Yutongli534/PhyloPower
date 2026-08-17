@@ -207,7 +207,7 @@ gene,20261701,distance,between,two-sample KS,0.11090277777777774,0.1623557367646
 gene,20261701,dispersion,distance_to_centroid,two-sample KS,0.15,0.7559524017546123,True,,,,
 gene,20261701,sample,library_size,two-sample KS,0.05,0.9999999982616946,True,,,,
 gene,20261701,sample,sample_sparsity,two-sample KS,0.0375,0.9999999999999996,True,,,,
-gene,20261701,sample,source_label,PERMANOVA,0.010653970845344196,1.0,True,0.5,0.95,1.0,0.8
+gene,20261701,sample,source_label,PERMANOVA,0.010653970845344203,1.0,True,0.5,0.95,1.0,0.8
 gene,20261732,feature,mean,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261732,feature,variance,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20261732,feature,prevalence,two-sample KS,0.04466501240694789,0.8169516465099306,True,,,,
@@ -216,7 +216,7 @@ gene,20261732,distance,between,two-sample KS,0.1465972222222222,0.02544614250430
 gene,20261732,dispersion,distance_to_centroid,two-sample KS,0.24583333333333332,0.18656787855434526,True,,,,
 gene,20261732,sample,library_size,two-sample KS,0.07083333333333333,0.999923840498883,True,,,,
 gene,20261732,sample,sample_sparsity,two-sample KS,0.029166666666666667,1.0,True,,,,
-gene,20261732,sample,source_label,PERMANOVA,0.00038810152444228145,1.0,True,0.26875,1.0,1.0,0.9
+gene,20261732,sample,source_label,PERMANOVA,0.00038810152444245096,1.0,True,0.26875,1.0,1.0,0.9
 gene,20261763,feature,mean,two-sample KS,0.04466501240694789,0.8169516465099306,True,,,,
 gene,20261763,feature,variance,two-sample KS,0.034739454094292806,0.9684986795280772,True,,,,
 gene,20261763,feature,prevalence,two-sample KS,0.04714640198511166,0.7623031227582044,True,,,,
@@ -225,7 +225,7 @@ gene,20261763,distance,between,two-sample KS,0.1345833333333334,0.05030009450087
 gene,20261763,dispersion,distance_to_centroid,two-sample KS,0.24166666666666667,0.2017430627281497,True,,,,
 gene,20261763,sample,library_size,two-sample KS,0.09166666666666666,0.9946968009915917,True,,,,
 gene,20261763,sample,sample_sparsity,two-sample KS,0.04583333333333333,0.9999999999685859,True,,,,
-gene,20261763,sample,source_label,PERMANOVA,0.009018421565652359,1.0,True,0.275,1.0,1.0,0.85
+gene,20261763,sample,source_label,PERMANOVA,0.009018421565652182,1.0,True,0.275,1.0,1.0,0.85
 gene,20261794,feature,mean,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20261794,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261794,feature,prevalence,two-sample KS,0.04466501240694789,0.8169516465099306,True,,,,
@@ -234,7 +234,7 @@ gene,20261794,distance,between,two-sample KS,0.13416666666666666,0.0514489381716
 gene,20261794,dispersion,distance_to_centroid,two-sample KS,0.24583333333333332,0.18656787855434526,True,,,,
 gene,20261794,sample,library_size,two-sample KS,0.07083333333333333,0.999923840498883,True,,,,
 gene,20261794,sample,sample_sparsity,two-sample KS,0.0375,0.9999999999999996,True,,,,
-gene,20261794,sample,source_label,PERMANOVA,0.004715031858728011,1.0,True,0.2,1.0,0.9,0.85
+gene,20261794,sample,source_label,PERMANOVA,0.004715031858728184,1.0,True,0.2,1.0,0.9,0.85
 gene,20261825,feature,mean,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261825,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261825,feature,prevalence,two-sample KS,0.04962779156327544,0.704447334891812,True,,,,
@@ -243,7 +243,7 @@ gene,20261825,distance,between,two-sample KS,0.10743055555555558,0.1891229210368
 gene,20261825,dispersion,distance_to_centroid,two-sample KS,0.1625,0.6661514342851321,True,,,,
 gene,20261825,sample,library_size,two-sample KS,0.05416666666666667,0.9999999508934545,True,,,,
 gene,20261825,sample,sample_sparsity,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
-gene,20261825,sample,source_label,PERMANOVA,0.0004508885505074097,1.0,True,0.475,1.0,1.0,0.9
+gene,20261825,sample,source_label,PERMANOVA,0.00045088855050740993,1.0,True,0.475,1.0,1.0,0.9
 gene,20261856,feature,mean,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20261856,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261856,feature,prevalence,two-sample KS,0.04466501240694789,0.8169516465099306,True,,,,
@@ -252,7 +252,7 @@ gene,20261856,distance,between,two-sample KS,0.10333333333333333,0.2249867384930
 gene,20261856,dispersion,distance_to_centroid,two-sample KS,0.16666666666666666,0.6356851305256325,True,,,,
 gene,20261856,sample,library_size,two-sample KS,0.06666666666666667,0.9999800087345543,True,,,,
 gene,20261856,sample,sample_sparsity,two-sample KS,0.020833333333333332,1.0,True,,,,
-gene,20261856,sample,source_label,PERMANOVA,0.0016993662897788987,1.0,True,0.425,0.95,1.0,0.65
+gene,20261856,sample,source_label,PERMANOVA,0.001699366289779073,1.0,True,0.425,0.95,1.0,0.65
 gene,20261887,feature,mean,two-sample KS,0.01488833746898263,0.9999999999913116,True,,,,
 gene,20261887,feature,variance,two-sample KS,0.034739454094292806,0.9684986795280772,True,,,,
 gene,20261887,feature,prevalence,two-sample KS,0.062034739454094295,0.42051220396817,True,,,,
@@ -261,7 +261,7 @@ gene,20261887,distance,between,two-sample KS,0.16680555555555554,0.0070827788191
 gene,20261887,dispersion,distance_to_centroid,two-sample KS,0.19166666666666668,0.46012037773852077,True,,,,
 gene,20261887,sample,library_size,two-sample KS,0.0875,0.9971285619344948,True,,,,
 gene,20261887,sample,sample_sparsity,two-sample KS,0.0625,0.9999959521972709,True,,,,
-gene,20261887,sample,source_label,PERMANOVA,0.010289952814255536,1.0,True,0.3625,1.0,1.0,0.9
+gene,20261887,sample,source_label,PERMANOVA,0.010289952814255541,1.0,True,0.3625,1.0,1.0,0.9
 gene,20261918,feature,mean,two-sample KS,0.03970223325062035,0.9090806887622305,True,,,,
 gene,20261918,feature,variance,two-sample KS,0.02729528535980149,0.998302434415799,True,,,,
 gene,20261918,feature,prevalence,two-sample KS,0.04962779156327544,0.704447334891812,True,,,,
@@ -270,7 +270,7 @@ gene,20261918,distance,between,two-sample KS,0.0847916666666666,0.45038328218403
 gene,20261918,dispersion,distance_to_centroid,two-sample KS,0.21666666666666667,0.3130491314932045,True,,,,
 gene,20261918,sample,library_size,two-sample KS,0.06666666666666667,0.9999800087345543,True,,,,
 gene,20261918,sample,sample_sparsity,two-sample KS,0.03333333333333333,1.0,True,,,,
-gene,20261918,sample,source_label,PERMANOVA,0.0011556528423196147,1.0,True,0.275,1.0,1.0,0.7
+gene,20261918,sample,source_label,PERMANOVA,0.0011556528423197886,1.0,True,0.275,1.0,1.0,0.7
 gene,20261949,feature,mean,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261949,feature,variance,two-sample KS,0.02481389578163772,0.9996718643804194,True,,,,
 gene,20261949,feature,prevalence,two-sample KS,0.052109181141439205,0.645174145916429,True,,,,
@@ -279,7 +279,7 @@ gene,20261949,distance,between,two-sample KS,0.0967361111111111,0.29315441344124
 gene,20261949,dispersion,distance_to_centroid,two-sample KS,0.2375,0.21784528768064107,True,,,,
 gene,20261949,sample,library_size,two-sample KS,0.06666666666666667,0.9999800087345543,True,,,,
 gene,20261949,sample,sample_sparsity,two-sample KS,0.029166666666666667,1.0,True,,,,
-gene,20261949,sample,source_label,PERMANOVA,0.007622626156050247,1.0,True,0.35,1.0,1.0,0.95
+gene,20261949,sample,source_label,PERMANOVA,0.007622626156050248,1.0,True,0.35,1.0,1.0,0.95
 gene,20261980,feature,mean,two-sample KS,0.03970223325062035,0.9090806887622305,True,,,,
 gene,20261980,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20261980,feature,prevalence,two-sample KS,0.052109181141439205,0.645174145916429,True,,,,
@@ -288,7 +288,7 @@ gene,20261980,distance,between,two-sample KS,0.11743055555555548,0.1202425022403
 gene,20261980,dispersion,distance_to_centroid,two-sample KS,0.19166666666666668,0.46012037773852077,True,,,,
 gene,20261980,sample,library_size,two-sample KS,0.058333333333333334,0.9999994230836113,True,,,,
 gene,20261980,sample,sample_sparsity,two-sample KS,0.08333333333333333,0.9985849537857988,True,,,,
-gene,20261980,sample,source_label,PERMANOVA,0.004145701037214603,1.0,True,0.36875,1.0,1.0,0.8
+gene,20261980,sample,source_label,PERMANOVA,0.004145701037214433,1.0,True,0.36875,1.0,1.0,0.8
 gene,20262011,feature,mean,two-sample KS,0.03722084367245657,0.9433152569911636,True,,,,
 gene,20262011,feature,variance,two-sample KS,0.03225806451612903,0.9849719173667636,True,,,,
 gene,20262011,feature,prevalence,two-sample KS,0.04962779156327544,0.704447334891812,True,,,,
@@ -297,7 +297,7 @@ gene,20262011,distance,between,two-sample KS,0.10222222222222223,0.2355487733246
 gene,20262011,dispersion,distance_to_centroid,two-sample KS,0.2875,0.07900167837789215,True,,,,
 gene,20262011,sample,library_size,two-sample KS,0.0625,0.9999959521972709,True,,,,
 gene,20262011,sample,sample_sparsity,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
-gene,20262011,sample,source_label,PERMANOVA,0.013514670147671293,1.0,True,0.49375,1.0,1.0,0.65
+gene,20262011,sample,source_label,PERMANOVA,0.013514670147671107,1.0,True,0.49375,1.0,1.0,0.65
 gene,20262042,feature,mean,two-sample KS,0.02977667493796526,0.9941699100383595,True,,,,
 gene,20262042,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262042,feature,prevalence,two-sample KS,0.052109181141439205,0.645174145916429,True,,,,
@@ -306,7 +306,7 @@ gene,20262042,distance,between,two-sample KS,0.1037499999999999,0.22111955936900
 gene,20262042,dispersion,distance_to_centroid,two-sample KS,0.2875,0.07900167837789215,True,,,,
 gene,20262042,sample,library_size,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
 gene,20262042,sample,sample_sparsity,two-sample KS,0.05,0.9999999982616946,True,,,,
-gene,20262042,sample,source_label,PERMANOVA,0.008018198602977571,1.0,True,0.31875,1.0,1.0,0.8
+gene,20262042,sample,source_label,PERMANOVA,0.00801819860297723,1.0,True,0.31875,1.0,1.0,0.8
 gene,20262073,feature,mean,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20262073,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262073,feature,prevalence,two-sample KS,0.04962779156327544,0.704447334891812,True,,,,
@@ -315,7 +315,7 @@ gene,20262073,distance,between,two-sample KS,0.1101388888888889,0.16797070023686
 gene,20262073,dispersion,distance_to_centroid,two-sample KS,0.15,0.7559524017546123,True,,,,
 gene,20262073,sample,library_size,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
 gene,20262073,sample,sample_sparsity,two-sample KS,0.04583333333333333,0.9999999999685859,True,,,,
-gene,20262073,sample,source_label,PERMANOVA,0.0266448407212708,1.0,True,0.41875,1.0,0.8,0.65
+gene,20262073,sample,source_label,PERMANOVA,0.026644840721270973,1.0,True,0.41875,1.0,0.8,0.65
 gene,20262104,feature,mean,two-sample KS,0.017369727047146403,0.9999999868437329,True,,,,
 gene,20262104,feature,variance,two-sample KS,0.02977667493796526,0.9941699100383595,True,,,,
 gene,20262104,feature,prevalence,two-sample KS,0.05459057071960298,0.5860325997736157,True,,,,
@@ -324,7 +324,7 @@ gene,20262104,distance,between,two-sample KS,0.16729166666666664,0.0068540777845
 gene,20262104,dispersion,distance_to_centroid,two-sample KS,0.32083333333333336,0.03587768434332082,False,,,,
 gene,20262104,sample,library_size,two-sample KS,0.075,0.9997633561629687,True,,,,
 gene,20262104,sample,sample_sparsity,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
-gene,20262104,sample,source_label,PERMANOVA,0.0001665392445200618,1.0,True,0.275,1.0,1.0,0.9
+gene,20262104,sample,source_label,PERMANOVA,0.00016653924452006186,1.0,True,0.275,1.0,1.0,0.9
 gene,20262135,feature,mean,two-sample KS,0.02729528535980149,0.998302434415799,True,,,,
 gene,20262135,feature,variance,two-sample KS,0.03722084367245657,0.9433152569911636,True,,,,
 gene,20262135,feature,prevalence,two-sample KS,0.05955334987593052,0.4728764354473864,True,,,,
@@ -333,7 +333,7 @@ gene,20262135,distance,between,two-sample KS,0.1126388888888889,0.15014889620695
 gene,20262135,dispersion,distance_to_centroid,two-sample KS,0.2625,0.13454535569840492,True,,,,
 gene,20262135,sample,library_size,two-sample KS,0.0875,0.9971285619344948,True,,,,
 gene,20262135,sample,sample_sparsity,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
-gene,20262135,sample,source_label,PERMANOVA,0.02114553835662514,1.0,True,0.3375,1.0,1.0,0.9
+gene,20262135,sample,source_label,PERMANOVA,0.02114553835662515,1.0,True,0.3375,1.0,1.0,0.9
 gene,20262166,feature,mean,two-sample KS,0.02977667493796526,0.9941699100383595,True,,,,
 gene,20262166,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262166,feature,prevalence,two-sample KS,0.034739454094292806,0.9684986795280772,True,,,,
@@ -342,7 +342,7 @@ gene,20262166,distance,between,two-sample KS,0.10881944444444444,0.1780297888314
 gene,20262166,dispersion,distance_to_centroid,two-sample KS,0.15,0.7559524017546123,True,,,,
 gene,20262166,sample,library_size,two-sample KS,0.10833333333333334,0.9689523785334125,True,,,,
 gene,20262166,sample,sample_sparsity,two-sample KS,0.016666666666666666,1.0,True,,,,
-gene,20262166,sample,source_label,PERMANOVA,0.02003239181192634,1.0,True,0.4875,1.0,1.0,0.75
+gene,20262166,sample,source_label,PERMANOVA,0.020032391811926172,1.0,True,0.4875,1.0,1.0,0.75
 gene,20262197,feature,mean,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20262197,feature,variance,two-sample KS,0.03225806451612903,0.9849719173667636,True,,,,
 gene,20262197,feature,prevalence,two-sample KS,0.04714640198511166,0.7623031227582044,True,,,,
@@ -351,7 +351,7 @@ gene,20262197,distance,between,two-sample KS,0.11513888888888887,0.1338752086226
 gene,20262197,dispersion,distance_to_centroid,two-sample KS,0.25833333333333336,0.14631134116604608,True,,,,
 gene,20262197,sample,library_size,two-sample KS,0.09166666666666666,0.9946968009915917,True,,,,
 gene,20262197,sample,sample_sparsity,two-sample KS,0.025,1.0,True,,,,
-gene,20262197,sample,source_label,PERMANOVA,0.01156172784934292,1.0,True,0.375,1.0,1.0,0.8
+gene,20262197,sample,source_label,PERMANOVA,0.011561727849342916,1.0,True,0.375,1.0,1.0,0.8
 gene,20262228,feature,mean,two-sample KS,0.02481389578163772,0.9996718643804194,True,,,,
 gene,20262228,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262228,feature,prevalence,two-sample KS,0.04714640198511166,0.7623031227582044,True,,,,
@@ -360,7 +360,7 @@ gene,20262228,distance,between,two-sample KS,0.10875000000000001,0.1785720452522
 gene,20262228,dispersion,distance_to_centroid,two-sample KS,0.175,0.5751654718457666,True,,,,
 gene,20262228,sample,library_size,two-sample KS,0.0625,0.9999959521972709,True,,,,
 gene,20262228,sample,sample_sparsity,two-sample KS,0.0375,0.9999999999999996,True,,,,
-gene,20262228,sample,source_label,PERMANOVA,0.007739840222278806,1.0,True,0.43125,1.0,1.0,0.85
+gene,20262228,sample,source_label,PERMANOVA,0.007739840222278808,1.0,True,0.43125,1.0,1.0,0.85
 gene,20262259,feature,mean,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262259,feature,variance,two-sample KS,0.019851116625310174,0.9999985615416674,True,,,,
 gene,20262259,feature,prevalence,two-sample KS,0.052109181141439205,0.645174145916429,True,,,,
@@ -369,7 +369,7 @@ gene,20262259,distance,between,two-sample KS,0.16118055555555555,0.0102822624343
 gene,20262259,dispersion,distance_to_centroid,two-sample KS,0.15833333333333333,0.6964908533568241,True,,,,
 gene,20262259,sample,library_size,two-sample KS,0.08333333333333333,0.9985849537857988,True,,,,
 gene,20262259,sample,sample_sparsity,two-sample KS,0.041666666666666664,0.999999999999794,True,,,,
-gene,20262259,sample,source_label,PERMANOVA,7.946893358564672e-05,1.0,True,0.26875,1.0,1.0,0.8
+gene,20262259,sample,source_label,PERMANOVA,7.946893358564673e-05,1.0,True,0.26875,1.0,1.0,0.8
 gene,20262290,feature,mean,two-sample KS,0.022332506203473945,0.9999653721456532,True,,,,
 gene,20262290,feature,variance,two-sample KS,0.017369727047146403,0.9999999868437329,True,,,,
 gene,20262290,feature,prevalence,two-sample KS,0.04962779156327544,0.704447334891812,True,,,,
@@ -378,4 +378,4 @@ gene,20262290,distance,between,two-sample KS,0.11791666666666667,0.1175019120967
 gene,20262290,dispersion,distance_to_centroid,two-sample KS,0.15,0.7559524017546123,True,,,,
 gene,20262290,sample,library_size,two-sample KS,0.08333333333333333,0.9985849537857988,True,,,,
 gene,20262290,sample,sample_sparsity,two-sample KS,0.0375,0.9999999999999996,True,,,,
-gene,20262290,sample,source_label,PERMANOVA,0.010774220676689383,1.0,True,0.41875,0.95,1.0,0.85
+gene,20262290,sample,source_label,PERMANOVA,0.010774220676689383,1.0,True,0.3875,0.95,1.0,0.85

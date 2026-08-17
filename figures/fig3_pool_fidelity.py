@@ -46,12 +46,6 @@ from phylopower import core  # noqa: E402  (import first: installs the embedded-
 import figstyle  # noqa: E402
 import pcam_gen as P  # noqa: E402
 from _protein_mdctf_mc import mdctf_mc_pool  # noqa: E402
-from fidelity_common import (  # noqa: E402
-    _distance_metrics,
-    _eigenspectrum,
-    _sample_syn_columns,
-    _within_between,
-)
 from semisynthetic_power import _pcoa_coords  # noqa: E402
 
 core.load_core_runtime()
@@ -111,6 +105,74 @@ def _safe_ratio(num: float, den: float) -> float:
 
 def _ratio_error(value: float) -> float:
     return abs(float(np.log2(max(value, 1e-12))))
+
+
+# --- fidelity metrics (inlined from the retired analysis/fidelity_common.py) ---
+
+
+def _within_between(dm: pd.DataFrame, labels: pd.Series) -> tuple[np.ndarray, np.ndarray]:
+    ids = list(dm.index)
+    arr = dm.loc[ids, ids].to_numpy(dtype=float)
+    lab = labels.loc[ids].to_numpy()
+    iu = np.triu_indices(arr.shape[0], 1)
+    vals = arr[iu]
+    same = lab[iu[0]] == lab[iu[1]]
+    return vals[same], vals[~same]
+
+
+def _eigenspectrum(dm: pd.DataFrame, sgm: pd.Series) -> dict[str, np.ndarray | float]:
+    ids = list(dm.index)
+    coords = _pcoa_coords(dm.loc[ids, ids]).to_numpy()
+    labels = sgm.loc[ids].to_numpy()
+    resid = []
+    for g in pd.unique(labels):
+        sub = coords[labels == g]
+        resid.append(sub - sub.mean(axis=0, keepdims=True))
+    R = np.vstack(resid)
+    cov = np.cov(R, rowvar=False)
+    eig = np.linalg.eigvalsh(cov)
+    eig = np.sort(eig[eig > 1e-12])[::-1]
+    if eig.size == 0:
+        return {"eig": np.array([]), "prop": np.array([]), "deff": float("nan")}
+    prop = eig / eig.sum()
+    deff = float((eig.sum() ** 2) / np.sum(eig ** 2))
+    return {"eig": eig, "prop": prop, "deff": deff}
+
+
+def _distance_metrics(real_dm: pd.DataFrame, real_sgm: pd.Series, syn_dm: pd.DataFrame,
+                      syn_sgm: pd.Series) -> dict[str, float | np.ndarray | dict]:
+    rw, rb = _within_between(real_dm, real_sgm)
+    sw, sb = _within_between(syn_dm, syn_sgm)
+    real_spec = _eigenspectrum(real_dm, real_sgm)
+    syn_spec = _eigenspectrum(syn_dm, syn_sgm)
+    om_real = max(0.0, float(core.compute_omega2(real_dm, real_sgm)))
+    om_syn = max(0.0, float(core.compute_omega2(syn_dm, syn_sgm)))
+    return {
+        "within_real": rw,
+        "within_syn": sw,
+        "between_real": rb,
+        "between_syn": sb,
+        "within_ks": float(ks_2samp(rw, sw).statistic),
+        "between_ks": float(ks_2samp(rb, sb).statistic),
+        "omega2_real": om_real,
+        "omega2_syn": om_syn,
+        "omega2_ratio": _safe_ratio(om_syn, om_real),
+        "real_spectrum": real_spec,
+        "syn_spectrum": syn_spec,
+        "deff_real": float(real_spec["deff"]),
+        "deff_syn": float(syn_spec["deff"]),
+        "deff_ratio": _safe_ratio(float(syn_spec["deff"]), float(real_spec["deff"])),
+    }
+
+
+def _sample_syn_columns(sgm: pd.Series, n_per_group: int, seed: int) -> list[str]:
+    rng = np.random.default_rng(seed)
+    cols: list[str] = []
+    for g in pd.unique(sgm):
+        members = sgm[sgm == g].index.to_numpy()
+        pick = rng.choice(members, size=min(n_per_group, len(members)), replace=False)
+        cols.extend(pick.tolist())
+    return cols
 
 
 def _positive_log_jitter(tab: pd.DataFrame, sd: float, seed: int) -> pd.DataFrame:

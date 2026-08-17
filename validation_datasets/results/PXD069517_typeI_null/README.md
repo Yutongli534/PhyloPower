@@ -21,8 +21,13 @@ realized null effect cannot accumulate with sample size).
 ## Reproducible command
 
 ```sh
-python3 run_pxd069517_typeI.py --workers 4
+/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python \
+    figures/suppfig2_feasibility_spectrum.py --compute --workers 4
 ```
+
+(The retired producer `analysis/run_pxd069517_typeI.py` was merged into
+`figures/suppfig2_feasibility_spectrum.py` as its `--compute` mode and
+archived in `_archive_scripts/`; run from the repository root.)
 
 ## Outputs
 

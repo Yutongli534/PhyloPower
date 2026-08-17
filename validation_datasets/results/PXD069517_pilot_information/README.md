@@ -48,8 +48,8 @@ evidence about biology.
 ## Reproducible command
 
 ```sh
-python3 analysis/run_pilot_information_supplement_protein_pxd.py \
-  --out validation_datasets/results/PXD069517_pilot_information
+python3 figures/suppfig1_pilot_convergence.py --compute protein \
+  --protein-out validation_datasets/results/PXD069517_pilot_information
 python3 export_pilot_information_two_panel_protein.py
 ```
 
@@ -58,8 +58,8 @@ repeated pilot draw (`raw_pilot_{5,7,10}.csv`), so an interrupted run resumes
 where it stopped; use `--force` to restart from scratch. Plotting only:
 
 ```sh
-python3 analysis/run_pilot_information_supplement_protein_pxd.py --plot-only \
-  --out validation_datasets/results/PXD069517_pilot_information
+python3 figures/suppfig1_pilot_convergence.py --compute protein --plot-only \
+  --protein-out validation_datasets/results/PXD069517_pilot_information
 ```
 
 ## Outputs

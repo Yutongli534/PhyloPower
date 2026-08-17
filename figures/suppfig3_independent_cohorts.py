@@ -2,7 +2,7 @@
 """Supplementary Figure S3 - independent-cohort validation (combined panels).
 
 Stitches the per-cohort pilot-curve products (QinJ_2012, YachidaS_2019;
-produced by analysis/run_cli_pilot_sensitivity.py runs documented in
+produced by scripts/run_validation_pilot_sensitivity.py runs documented in
 validation_datasets/results/) into one 2x2 figure: rows are cohorts,
 columns are observed-size consistency (eval n = 20) and extrapolation
 (eval n = 80).

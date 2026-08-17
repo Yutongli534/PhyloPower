@@ -17,7 +17,7 @@ contains 14 samples in each analysis group.
 ## Reproduction command
 
 ```bash
-python3 analysis/run_cli_pilot_sensitivity.py \
+python3 scripts/run_validation_pilot_sensitivity.py \
   --workflow protein \
   --protein-table validation_datasets/processed/PXD069517/protein_taxon_function.csv \
   --protein-tree validation_datasets/processed/PXD069517/rooted-tree.nwk \

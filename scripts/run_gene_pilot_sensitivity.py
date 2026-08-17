@@ -8,7 +8,7 @@ permutes through the global ``numpy.random`` state, while
 ``seed=``. This launcher wraps ``permanova`` so that a given seed reseeds the
 global RNG for the duration of the call (the previous RNG state is saved and
 restored), making bootstrap PERMANOVA p-values deterministic, then delegates
-to ``analysis/run_cli_pilot_sensitivity.main`` unchanged.
+to ``scripts/run_validation_pilot_sensitivity.main`` unchanged.
 
 Usage (must run with the QIIME 2 environment Python):
 
@@ -24,9 +24,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-ANALYSIS = ROOT / "analysis"
-if str(ANALYSIS) not in sys.path:
-    sys.path.insert(0, str(ANALYSIS))
+SCRIPTS = ROOT / "scripts"
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
 
 import numpy as np
 import skbio.stats.distance as _skbio_distance
@@ -51,7 +51,7 @@ def _permanova_seeded(distance_matrix, grouping, column=None, permutations=999, 
 
 _skbio_distance.permanova = _permanova_seeded
 
-import run_cli_pilot_sensitivity as _runner
+import run_validation_pilot_sensitivity as _runner
 
 if __name__ == "__main__":
     _runner.main()
