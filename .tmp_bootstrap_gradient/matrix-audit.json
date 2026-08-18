@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "invariant": "white main diagonal and exact mirror symmetry",
+  "method": "bilinear RGB interpolation from original color anchors",
+  "matrices": [
+    {
+      "label": "source-20x20",
+      "size": 20
+    },
+    {
+      "label": "bootstrap-top-14x14",
+      "size": 14
+    },
+    {
+      "label": "bootstrap-middle-14x14",
+      "size": 14
+    },
+    {
+      "label": "bootstrap-bottom-14x14",
+      "size": 14
+    }
+  ]
+}

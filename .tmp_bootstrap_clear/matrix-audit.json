@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "invariant": "white diagonal and mirror symmetry",
+  "matrices": [
+    {
+      "label": "source-12x12",
+      "size": 12
+    },
+    {
+      "label": "bootstrap-top-8x8",
+      "size": 8
+    },
+    {
+      "label": "bootstrap-middle-8x8",
+      "size": 8
+    },
+    {
+      "label": "bootstrap-bottom-8x8",
+      "size": 8
+    }
+  ]
+}

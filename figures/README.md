@@ -57,7 +57,6 @@ QIIME=/opt/miniconda3/envs/qiime2-metagenome-2024.10/bin/python
 | Fig. 8 (tree-error power behavior) | `fig8_tree_error_power.py` | `python3 figures/fig8_tree_error_power.py` | `$QIIME figures/fig8_tree_error_power.py --compute curves\|midpoint\|all` | `tree_error_fig5_like_3x2.png/.pdf` |
 | Fig. S1 (pilot convergence, both modalities) | `suppfig1_pilot_convergence.py` | `python3 figures/suppfig1_pilot_convergence.py` | `$QIIME figures/suppfig1_pilot_convergence.py --compute gene\|protein\|all` | `suppfig1_pilot_convergence.png/.pdf` |
 | Fig. S2 (feasibility spectrum + null safety) | `suppfig2_feasibility_spectrum.py` | `python3 figures/suppfig2_feasibility_spectrum.py` | `$QIIME figures/suppfig2_feasibility_spectrum.py --compute` | `suppfig2_feasibility_spectrum.png/.pdf` |
-| Fig. S3 (independent-cohort validation) | `suppfig3_independent_cohorts.py` | `python3 figures/suppfig3_independent_cohorts.py` | re-run `scripts/run_validation_pilot_sensitivity.py` per `validation_datasets/results/*_core_matched/README.md` | `suppfig3_independent_cohorts.png/.pdf` |
 | Graphical abstract | `graphical_abstract.py` | `python3 figures/graphical_abstract.py` | — | `graphical_abstract.png/.pdf` |
 
 Shared panel-drawing helpers for Fig. 5/Fig. 8 live in
