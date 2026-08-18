@@ -20,7 +20,12 @@ ARCHIVE_PATH = RELEASE_DIR / f"{ARCHIVE_ROOT}.zip"
 # manuscript can be regenerated from the bundled inputs with the bundled
 # scripts, and the full evidence tree stays browsable on GitHub. Excluding
 # them keeps the citable archive lean (code + inputs + scripts).
+# Software-only archive: figure-generation code and archived figure inputs
+# stay in the public GitHub repository; the citable Zenodo record carries
+# the software, its readable sources, tests, tutorial, and validation inputs.
 EXCLUDE_DIRS = (
+    "figures/",
+    "data/",
     # archived run outputs are regenerable via figures/*.py --compute, EXCEPT
     # the tree_error_fig5_like* curve CSVs, which have no compute path
     # (kept below so Fig 8 stays reproducible from the archive alone)
