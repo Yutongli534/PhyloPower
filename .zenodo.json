@@ -21,5 +21,13 @@
     "beta diversity",
     "PERMANOVA",
     "phylogenetics"
+  ],
+  "doi": "10.5281/zenodo.21991013",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Yutongli534/PhyloPower",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
   ]
 }
