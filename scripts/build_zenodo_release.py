@@ -56,6 +56,8 @@ KEEP_OUTPUT = (
 
 # regenerable image outputs that happen to live inside data directories
 EXCLUDE_FILES = {
+    "CHANGELOG.md",
+    "sitecustomize.py",
     "data/figdata/protein_mdctf_curve/comparison.png",
     "data/pilot_information_supplement/pilot_information_supplement.png",
     "data/pilot_information_supplement/pilot_information_supplement.pdf",
