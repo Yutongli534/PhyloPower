@@ -1,8 +1,30 @@
 # PhyloPower
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21991013.svg)](https://doi.org/10.5281/zenodo.21991013)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 PhyloPower estimates the minimum balanced per-group sample size required for
 community-level meta-omics studies at a target statistical power and realized
 PERMANOVA effect size (ω²).
+
+## For reviewers
+
+The exact code version associated with the manuscript is permanently archived
+at Zenodo: https://doi.org/10.5281/zenodo.21991013. To verify the manuscript's
+claims, start from:
+
+- [`tutorials/tutorial.ipynb`](tutorials/tutorial.ipynb) — end-to-end
+  walkthrough of both workflows on the bundled demo data;
+- [`figures/README.md`](figures/README.md) — figure-to-script map: every
+  manuscript figure and supplementary figure has exactly one generating
+  script, with precomputed result caches so figures can be regenerated
+  without re-running the full simulations;
+- [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md) — environment setup, seeds, and
+  Monte Carlo settings used for the manuscript;
+- [`validation_datasets/`](validation_datasets) — processed external
+  validation cohorts with preparation summaries and checksums.
+
+## Overview
 
 The manuscript-aligned implementation is `phylopower.cli`. It provides
 two raw-pool workflows:

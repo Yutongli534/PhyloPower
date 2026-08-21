@@ -57,3 +57,15 @@ _archive_scripts/
 phylopower/.claude/
 Evo15_Evo2_guide_zh.md
 docs/
+
+# --- removed from the reviewer-facing repo (kept on local disk only) ---
+.tmp_bootstrap_*/
+.tmp_matrix_exports/
+.tmp_pcam_options/
+.tmp_pcam_ppt/
+NAR_submission/
+submission/
+sitecustomize.py
+cover_letter_draft.txt
+ESM_series_guide_zh.md
+ESM_series_sequential_zh.md

@@ -326,7 +326,7 @@ def main() -> None:
         run_compute(args)
 
     apply_style()
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.1), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.6), constrained_layout=True)
     fig.set_constrained_layout_pads(w_pad=0.05, h_pad=0.04, wspace=0.12)
 
     # ---- panel (a): feasibility spectrum ----

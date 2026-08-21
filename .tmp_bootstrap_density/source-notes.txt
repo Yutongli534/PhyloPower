@@ -1,3 +1,0 @@
-[Sources]
-- User-provided reference: /var/folders/56/dky6h5b54jq9m9fj_p41skzh0000gn/T/codex-clipboard-8bee9934-b9f9-4d97-8716-31d90bce09f8.png
-- Recreated locally as native PowerPoint shapes; no external visual assets were used.

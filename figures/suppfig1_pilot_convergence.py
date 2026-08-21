@@ -1063,7 +1063,7 @@ def plot() -> None:
     apply_style()
     gene = pd.read_csv(GENE_DATA)
     prot = pd.read_csv(PROT_DATA)
-    fig, axes = plt.subplots(2, 2, figsize=(7.0, 5.0), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(10.0, 7.2), constrained_layout=True)
     fig.set_constrained_layout_pads(w_pad=0.04, h_pad=0.06, wspace=0.08, hspace=0.10)
 
     rows = [("gene", gene, "Metagenomic (DPRS)"), ("protein", prot, "Metaproteomic (PXD069517)")]
