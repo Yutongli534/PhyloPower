@@ -1,7 +1,0 @@
-modality,scenario,synthetic_omega2,synthetic_per_group,selection_per_group,config
-gene,dilution,0.025575551643965373,100,60,gene|0.55|0.35
-gene,original,0.36300032281414246,100,60,gene|1.0|0.8
-gene,enhancement,0.6067304918455253,100,60,gene|1.0|10.0
-protein,dilution,0.035872746955580334,100,60,protein|0.4
-protein,original,0.2208885442440457,100,60,protein|1.2
-protein,enhancement,0.6581753409632713,100,60,protein|4.0
