@@ -1285,6 +1285,7 @@ def run_gene_bootstrap_permanova(
     subject_group_vector: Sequence[int],
     failure_log_path: Optional[Path] = None,
     failure_context: Optional[Dict[str, Any]] = None,
+    permutations: int = 999,
 ) -> tuple[float, float, int]:
     load_core_runtime()
     if original_dm is None:
@@ -1306,7 +1307,7 @@ def run_gene_bootstrap_permanova(
         p_value, permanova_failed = compute_permanova_p_value_with_status(
             boot_df,
             group_map=aligned_boot_group_map,
-            permutations=999,
+            permutations=int(permutations),
             failure_log_path=failure_log_path,
             failure_context=context,
             seed=make_permanova_seed(boot_seed),
@@ -1934,6 +1935,7 @@ def summarize_gene_distance_metrics(
     omega2_floor: Optional[float],
     failure_log_path: Optional[Path] = None,
     failure_context: Optional[Dict[str, Any]] = None,
+    permutations: int = 999,
 ) -> Dict[str, float]:
     load_core_runtime()
     if dm is None:
@@ -1956,6 +1958,7 @@ def summarize_gene_distance_metrics(
             subject_group_vector,
             failure_log_path=failure_log_path,
             failure_context=failure_context,
+            permutations=int(permutations),
         )
         for seed in boot_seeds
     )
@@ -2171,6 +2174,7 @@ def run_one_tree_level_gene(
                 "scenario_index": i,
                 "effect_level": float(level),
             },
+            permutations=int(getattr(args, "permutations", 999)),
         )
         scenarios.append(
             {
@@ -2256,6 +2260,7 @@ def run_one_tree_level_gene(
                     "scenario_index": idx,
                     "effect_level": float(scenario["effect_level"]),
                 },
+                permutations=int(getattr(args, "permutations", 999)),
             )
             return {
                 "n_per_group": n_per_group,

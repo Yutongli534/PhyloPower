@@ -71,6 +71,31 @@ correction makes the p-value denominator 200) are quick settings.
 Publication analyses should use substantially larger bootstrap and
 permutation counts (for example `--boot-number 500 --permutations 999`).
 
+## Monte Carlo uncertainty of power estimates
+
+Every scenario power value is a binomial proportion over `--boot-number`
+bootstrap replicates. `scenario_metrics_by_sample_size.csv` therefore reports,
+alongside `power`, its Monte Carlo standard error (`power_mcse` =
+sqrt(p(1-p)/B)) and a 95% Wilson interval (`power_wilson95_lower`,
+`power_wilson95_upper`). At the default B=200 the worst-case standard error
+(at power = 0.5) is about 0.035; at the conventional target power of 0.8 the
+95% Wilson interval is roughly ±0.056 wide. If the interval width matters for
+a design decision, increase `--boot-number`.
+
+## Generator fidelity boundary (protein workflow)
+
+The MDC-TF-MC generator is designed to preserve the taxon–function network
+structure of the pilot data — edge counts, degree distributions, connectance,
+and zero unsupported taxon–function edges — together with the
+distance/effect structure that drives power (within/between group distances
+and realized omega-squared). Feature-level marginal distributions (per-feature
+mean and variance) are recovered less tightly than by the PCAM gene
+generator; in independent checks the median real-split-calibrated discrepancy
+for feature marginals was ~1.4 (pass threshold 1.0), while all network and
+distance/effect fidelity metrics passed. Interpret the protein workflow's
+power estimates as conditioned on the preserved distance structure rather
+than on exact feature marginals.
+
 ## Bundled data
 
 The release includes the input files used as convenient execution examples.

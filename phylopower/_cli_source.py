@@ -399,6 +399,28 @@ def _curve_support_flags(power_df: pd.DataFrame) -> Dict[str, bool]:
     }
 
 
+def _with_power_uncertainty(metrics_df: pd.DataFrame, boot_number: int) -> pd.DataFrame:
+    """Attach per-scenario Monte Carlo uncertainty for the power estimate.
+
+    Each scenario's power is a binomial proportion over ``boot_number``
+    bootstrap replicates, so its Monte Carlo standard error is
+    sqrt(p(1-p)/B) and a 95% Wilson interval gives a robust confidence range.
+    """
+    if metrics_df.empty or "power" not in metrics_df.columns or int(boot_number) <= 0:
+        return metrics_df
+    p = metrics_df["power"].astype(float).clip(0.0, 1.0)
+    n = float(int(boot_number))
+    z = 1.959964
+    denom = 1.0 + z * z / n
+    centre = (p + z * z / (2.0 * n)) / denom
+    half = z * np.sqrt(p * (1.0 - p) / n + z * z / (4.0 * n * n)) / denom
+    out = metrics_df.copy()
+    out["power_mcse"] = np.sqrt(p * (1.0 - p) / n)
+    out["power_wilson95_lower"] = (centre - half).clip(0.0, 1.0)
+    out["power_wilson95_upper"] = (centre + half).clip(0.0, 1.0)
+    return out
+
+
 def _write_outputs(
     *,
     out: Path,
@@ -863,6 +885,7 @@ def compute_gene_min_sample_size(
         "tree_jitter_sigma": float(tree_jitter_sigma),
         "tree_nni_prob": float(tree_nni_prob),
     }
+    metrics_df = _with_power_uncertainty(metrics_df, int(boot_number))
     _write_outputs(out=out_path, summary=summary, power_df=power_df, metrics_df=metrics_df)
     return {"summary": summary, "power_by_sample_size": power_df, "scenario_metrics_by_sample_size": metrics_df}
 
@@ -1449,6 +1472,7 @@ def compute_protein_min_sample_size(
         "tree_jitter_sigma": float(tree_jitter_sigma),
         "tree_nni_prob": float(tree_nni_prob),
     }
+    metrics_df = _with_power_uncertainty(metrics_df, int(boot_number))
     _write_outputs(out=out_path, summary=summary, power_df=power_df, metrics_df=metrics_df)
     return {"summary": summary, "power_by_sample_size": power_df, "scenario_metrics_by_sample_size": metrics_df}
 

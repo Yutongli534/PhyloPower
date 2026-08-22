@@ -206,7 +206,8 @@ Each run writes:
 
 - `summary.json`;
 - `power_by_sample_size.csv`;
-- `scenario_metrics_by_sample_size.csv`;
+- `scenario_metrics_by_sample_size.csv` (per-scenario power with Monte Carlo
+  standard error and 95% Wilson interval columns);
 - `sample_size_decision.png`.
 
 The Python API returns the same summary and two result tables in a dictionary.
