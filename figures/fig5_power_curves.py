@@ -496,7 +496,8 @@ def plot_figure() -> None:
         colors=gene_fig.SIZE_COLORS,
         title="Metagenomics study-size family (pilot n=10)",
         bin_width=0.008,
-        legend_loc="upper right",
+        legend_loc="lower center",
+        legend_ncol=3,
     )
     protein_fig.draw_points_panel(
         axes[0, 1],
@@ -505,6 +506,8 @@ def plot_figure() -> None:
         keys=protein_fig.PILOT_KEYS,
         title="Metaproteomics study-size family (pilot n=17)",
         bin_width=0.004,
+        legend_loc="lower center",
+        legend_ncol=3,
     )
 
     gene_fig.draw_band_panel(

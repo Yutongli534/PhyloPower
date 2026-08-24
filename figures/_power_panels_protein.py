@@ -128,7 +128,7 @@ def finish_axis(ax, xmax: float, show_ylabel: bool) -> None:
     ax.tick_params(axis="both", length=4, width=0.9, color="#444444")
 
 
-def draw_points_panel(ax, suball: pd.DataFrame, *, by: str, keys: list[int], title: str, bin_width: float) -> None:
+def draw_points_panel(ax, suball: pd.DataFrame, *, by: str, keys: list[int], title: str, bin_width: float, legend_loc: str = "lower right", legend_ncol: int = 1) -> None:
     xmax = max(0.08, float(suball["true_omega2"].max()) * 1.06)
     x = np.linspace(0, xmax, 600)
     for key in keys:
@@ -149,7 +149,12 @@ def draw_points_panel(ax, suball: pd.DataFrame, *, by: str, keys: list[int], tit
         ax.plot(x, y, color=color, lw=2.35, label=label, zorder=4)
     ax.set_title(title)
     finish_axis(ax, xmax, show_ylabel=True)
-    ax.legend(loc="lower right", ncol=1, handlelength=2.6, borderaxespad=0.35)
+    leg = ax.legend(loc=legend_loc, ncol=legend_ncol, handlelength=2.2, borderaxespad=0.35)
+    if legend_loc != "lower right":
+        leg.set_frame_on(True)
+        leg.get_frame().set_facecolor("white")
+        leg.get_frame().set_alpha(0.9)
+        leg.get_frame().set_edgecolor("#dddddd")
 
 
 def draw_band_panel(ax, suball: pd.DataFrame, *, by: str, keys: list[int], title: str, bin_width: float, seed_base: int) -> None:
