@@ -14,22 +14,19 @@ and (behind a `--compute` flag) **recomputes** its archived input data. Run
 with no arguments to plot from the archived data under `data/` and
 `validation_datasets/`; run with `--compute` to re-run the underlying
 simulations first (same seeds, defaults, filenames and CSV columns as the
-original producers, which are archived in `_archive_scripts/`). Final figure
+original producers, which are not tracked in this repository). Final figure
 files land in `figures/output/`.
 
-**Missing-data fallback:** the release package does not ship the archived
-CSVs/run data. If a script's required archived inputs are absent, its default
-mode automatically switches to the compute path (same compute functions and
-default parameters as `--compute`), printing a one-line notice such as
-`[fig5] archived data not found ...; computing from scratch (this can take a
-while) ...`. When the archived data is present, default-mode behavior is
-unchanged. Note that `fig8_tree_error_power.py --compute` only covers its two
-retired producers; the study-size/consistency/extrapolation tables it plots
-come from the gene/protein power-workflow CLIs, so after the fallback compute
-the script stops with an explicit message if those are still missing.
-`suppfig3_independent_cohorts.py` regenerates missing panel sources by
-re-running the full per-cohort validation pipeline
-(`scripts/run_gene_pilot_sensitivity.py`), which can take hours.
+**Missing-data fallback:** the Zenodo software archive does not ship the
+archived CSVs/run data. If a script's required archived inputs are absent,
+its default mode automatically switches to the compute path (same compute
+functions and default parameters as `--compute`), printing a one-line notice
+such as `[fig5] archived data not found ...; computing from scratch (this can
+take a while) ...`. When the archived data is present, default-mode behavior
+is unchanged. Note that `fig8_tree_error_power.py --compute` only covers its
+two retired producers; the study-size/consistency/extrapolation tables it
+plots come from the gene/protein power-workflow CLIs, so after the fallback
+compute the script stops with an explicit message if those are still missing.
 `fig4_effect_modulation.py` is an exception: its panels (a,b) plot the
 archived `data/figdata/parameter_omega_dense_current_method_v4.csv`, which has
 no compute path in the repo, so that CSV must be present.
@@ -74,7 +71,6 @@ style is `figstyle.py`.
 | `fig8_tree_error_power.py` | `data/archived_runs/tree_error_fig5_like_quick/`, `.../tree_error_fig5_like_full25/` |
 | `suppfig1_pilot_convergence.py` | `data/pilot_information_supplement/` + `validation_datasets/results/PXD069517_pilot_information/` |
 | `suppfig2_feasibility_spectrum.py` | archived runs + `validation_datasets/results/PXD069517_typeI_null/` |
-| `suppfig3_independent_cohorts.py` | `validation_datasets/results/*_core_matched/` (`sensitivity_pilot_curves.png/.pdf`) |
 
 ## Provenance notes
 
