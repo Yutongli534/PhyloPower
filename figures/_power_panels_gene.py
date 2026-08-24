@@ -156,6 +156,7 @@ def draw_points_panel(
     colors: dict[int, str],
     title: str,
     bin_width: float,
+    legend_loc: str = "lower right",
 ) -> None:
     xmax = max(0.08, float(suball["true_omega2"].max()) * 1.06)
     x = np.linspace(0, xmax, 600)
@@ -179,7 +180,12 @@ def draw_points_panel(
         ax.plot(x, y, color=color, lw=2.35, label=label, zorder=4)
     ax.set_title(title)
     finish_axis(ax, xmax, show_ylabel=True)
-    ax.legend(loc="lower right", ncol=1, handlelength=2.6, borderaxespad=0.35)
+    leg = ax.legend(loc=legend_loc, ncol=1, handlelength=2.6, borderaxespad=0.35)
+    if legend_loc != "lower right":
+        leg.set_frame_on(True)
+        leg.get_frame().set_facecolor("white")
+        leg.get_frame().set_alpha(0.9)
+        leg.get_frame().set_edgecolor("#dddddd")
 
 
 def draw_band_panel(
